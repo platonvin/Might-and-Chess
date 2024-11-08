@@ -16,7 +16,7 @@ public class WholeFuckingGame : MonoBehaviour {
     public GameObject W_Pawn;
     public GameObject W_Queen;
     public GameObject W_Rook;
-
+    
     private Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
 
     // private PieceData[,] board = new PieceData[8, 8]; // 8x8 chess board
@@ -28,9 +28,9 @@ public class WholeFuckingGame : MonoBehaviour {
     public Vector3 board_left_bottom = new Vector3(-34.72f, 0, -29.43f);
     [SerializeField]
     public float single_cell_scale = (80.0f * ((142 - 7.0f * 2.0f) / (142.0f))) / 8.0f;
-
-
-    private Vector2Int? selectedBoardCell = null;
+    
+    private Vector2Int selectedBoardCell = new Vector2Int(0,0);
+    private bool is_piece_dragged = false;
     private Vector3 dragging_pos;
     // private bool is_anything_dragged = false;
 
@@ -61,12 +61,12 @@ public class WholeFuckingGame : MonoBehaviour {
     void Update() {
         // Handle input and update board
         HandleInput();
-        if (selectedBoardCell.HasValue) {
+        if (is_piece_dragged) {
             UpdateDraggingPosition();
         }
-        if (selectedBoardCell.HasValue) {
-            if (board[selectedBoardCell.Value.x, selectedBoardCell.Value.y] != null) {
-                board[selectedBoardCell.Value.x, selectedBoardCell.Value.y].
+        if (is_piece_dragged) {
+            if (board[selectedBoardCell.x, selectedBoardCell.y] != null) {
+                board[selectedBoardCell.x, selectedBoardCell.y].
                     SetVisualPosition(dragging_pos);
             }
         }
@@ -120,53 +120,61 @@ public class WholeFuckingGame : MonoBehaviour {
     }
 
     void HandleInput() {
+        // LBM click
         if (Input.GetMouseButtonDown(0)) {
-            Vector3 mousePosition = Input.mousePosition;
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit)) {
-                Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                Debug.Log("down" + clickedBoardCell.x + " " + clickedBoardCell.z);
+            // If already in hand
+            if (is_piece_dragged){
+                // nothing
+            } else {
+                Vector3 mousePosition = Input.mousePosition;
+                Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit)) {
+                    Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
+                    Debug.Log("down" + clickedBoardCell.x + " " + clickedBoardCell.z);
 
-                bool valid_target_cell =
-                    IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z)) &&
-                    (board[clickedBoardCell.x, clickedBoardCell.z] != null);
+                    bool valid_target_cell =
+                        IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z)) &&
+                        (board[clickedBoardCell.x, clickedBoardCell.z] != null);
 
-                // so can drag the figure
-                if (valid_target_cell) {
-                    Debug.Log("down" + "valid");
-                    selectedBoardCell = new Vector2Int(clickedBoardCell.x, clickedBoardCell.z);
-                } else {
-                    selectedBoardCell = null;
-                }
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0) && selectedBoardCell.HasValue) {
-            Vector3 mousePosition = Input.mousePosition;
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit)) {
-                Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                Debug.Log("up" + clickedBoardCell.x + " " + clickedBoardCell.z);
-                bool valid_target_cell = IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
-
-                if (valid_target_cell) {
-                    Debug.Log("up" + "valid");
-                    // Move the piece without validation for now
-                    bool moved = TryMovePiece(selectedBoardCell.Value, new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
-                    if (moved) {
-                        board[clickedBoardCell.x, clickedBoardCell.z].SetVisualPosition(getPos(clickedBoardCell.x, clickedBoardCell.z));
+                    // so can drag the figure
+                    if (valid_target_cell) {
+                        Debug.Log("down" + "valid");
+                        selectedBoardCell = new Vector2Int(clickedBoardCell.x, clickedBoardCell.z);
+                        is_piece_dragged = true;
                     }
                 }
+
             }
 
-            if (selectedBoardCell.HasValue) {
+        }
+
+        if (Input.GetMouseButtonUp(0)) {
+            // LMB up
+            if (is_piece_dragged){
+                Vector3 mousePosition = Input.mousePosition;
+                Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit)) {
+                    Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
+                    Debug.Log("up" + clickedBoardCell.x + " " + clickedBoardCell.z);
+                    bool valid_target_cell = IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
+
+                    if (valid_target_cell) {
+                        Debug.Log("up" + "valid");
+                        // Move the piece without validation for now
+                        bool moved = TryMovePiece(selectedBoardCell, new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
+                        if (moved) {
+                            board[clickedBoardCell.x, clickedBoardCell.z].SetVisualPosition(getPos(clickedBoardCell.x, clickedBoardCell.z));
+                        }
+                    }
+                }
+
                 // reset visual position so 
                 // unity is so fucked up, i dont even know. Same in cpp-vk is like 100 lines and 100mb of project files
-                if (board[selectedBoardCell.Value.x, selectedBoardCell.Value.y] != null)
-                    board[selectedBoardCell.Value.x, selectedBoardCell.Value.y].SetVisualPosition(getPos(selectedBoardCell.Value.x, selectedBoardCell.Value.y));
+                if (board[selectedBoardCell.x, selectedBoardCell.y] != null)
+                    board[selectedBoardCell.x, selectedBoardCell.y].SetVisualPosition(getPos(selectedBoardCell.x, selectedBoardCell.y));
+                
+                is_piece_dragged = false;
             }
-
-            selectedBoardCell = null;
         }
     }
 

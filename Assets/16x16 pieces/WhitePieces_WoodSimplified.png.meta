@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      WhitePieces_WoodSimplified_0: -4600335367484923947
+      WhitePieces_WoodSimplified_1: 2780796970919201824
+      WhitePieces_WoodSimplified_2: 5799000066133507641
+      WhitePieces_WoodSimplified_3: -6716607510049686409
+      WhitePieces_WoodSimplified_4: -7768540097699192435
+      WhitePieces_WoodSimplified_5: -98970325808201467
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
