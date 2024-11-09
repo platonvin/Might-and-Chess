@@ -443,6 +443,54 @@ TextureImporter:
   - first:
       213: 1777401687487052944
     second: Pixel_Playing_Card_Set_YEWBI_146
+  - first:
+      213: -5757527130824312587
+    second: Pixel_Playing_Card_Set_YEWBI_147
+  - first:
+      213: 1104987553470697116
+    second: Pixel_Playing_Card_Set_YEWBI_148
+  - first:
+      213: 549000175743663414
+    second: Pixel_Playing_Card_Set_YEWBI_149
+  - first:
+      213: -9034519615889485452
+    second: Pixel_Playing_Card_Set_YEWBI_150
+  - first:
+      213: 2810032008084743180
+    second: Pixel_Playing_Card_Set_YEWBI_151
+  - first:
+      213: -618735288945933680
+    second: Pixel_Playing_Card_Set_YEWBI_152
+  - first:
+      213: 3836767850997979094
+    second: Pixel_Playing_Card_Set_YEWBI_153
+  - first:
+      213: 1362879740208973371
+    second: Pixel_Playing_Card_Set_YEWBI_154
+  - first:
+      213: 557984020859681559
+    second: Pixel_Playing_Card_Set_YEWBI_155
+  - first:
+      213: -3837494320310143936
+    second: Pixel_Playing_Card_Set_YEWBI_156
+  - first:
+      213: -5541682811880868443
+    second: Pixel_Playing_Card_Set_YEWBI_157
+  - first:
+      213: 7806583846110937881
+    second: Pixel_Playing_Card_Set_YEWBI_158
+  - first:
+      213: -5245430437829569528
+    second: Pixel_Playing_Card_Set_YEWBI_159
+  - first:
+      213: 8122446368383675766
+    second: Pixel_Playing_Card_Set_YEWBI_160
+  - first:
+      213: -1272183285227459583
+    second: Pixel_Playing_Card_Set_YEWBI_161
+  - first:
+      213: -9119584324205576165
+    second: Pixel_Playing_Card_Set_YEWBI_162
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -513,7 +561,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -534,19 +582,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -554,12 +589,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 288
-        width: 32
-        height: 48
+        x: 81
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -576,12 +611,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 288
-        width: 32
-        height: 48
+        x: 161
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -598,12 +633,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 288
-        width: 32
-        height: 48
+        x: 241
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -620,12 +655,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_3
       rect:
         serializedVersion: 2
-        x: 128
-        y: 288
-        width: 32
-        height: 48
+        x: 321
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -642,12 +677,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 288
-        width: 32
-        height: 48
+        x: 401
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -664,12 +699,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_5
       rect:
         serializedVersion: 2
-        x: 192
-        y: 288
-        width: 32
-        height: 48
+        x: 481
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -686,12 +721,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_6
       rect:
         serializedVersion: 2
-        x: 224
-        y: 288
-        width: 32
-        height: 48
+        x: 561
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -708,12 +743,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_7
       rect:
         serializedVersion: 2
-        x: 256
-        y: 288
-        width: 32
-        height: 48
+        x: 641
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -730,12 +765,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_8
       rect:
         serializedVersion: 2
-        x: 288
-        y: 288
-        width: 32
-        height: 48
+        x: 721
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -752,12 +787,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_9
       rect:
         serializedVersion: 2
-        x: 320
-        y: 288
-        width: 32
-        height: 48
+        x: 801
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -774,12 +809,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_10
       rect:
         serializedVersion: 2
-        x: 352
-        y: 288
-        width: 32
-        height: 48
+        x: 881
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -796,12 +831,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_11
       rect:
         serializedVersion: 2
-        x: 384
-        y: 288
-        width: 32
-        height: 48
+        x: 961
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -818,12 +853,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_12
       rect:
         serializedVersion: 2
-        x: 416
-        y: 288
-        width: 32
-        height: 48
+        x: 1041
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -840,12 +875,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_13
       rect:
         serializedVersion: 2
-        x: 448
-        y: 288
-        width: 32
-        height: 48
+        x: 1121
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -862,12 +897,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_14
       rect:
         serializedVersion: 2
-        x: 480
-        y: 288
-        width: 32
-        height: 48
+        x: 1201
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -884,12 +919,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_15
       rect:
         serializedVersion: 2
-        x: 512
-        y: 288
-        width: 32
-        height: 48
+        x: 1281
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -906,12 +941,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_16
       rect:
         serializedVersion: 2
-        x: 544
-        y: 288
-        width: 32
-        height: 48
+        x: 1361
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -928,12 +963,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_17
       rect:
         serializedVersion: 2
-        x: 576
-        y: 288
-        width: 32
-        height: 48
+        x: 1441
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -950,12 +985,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_18
       rect:
         serializedVersion: 2
-        x: 608
-        y: 288
-        width: 32
-        height: 48
+        x: 1521
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -972,12 +1007,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_19
       rect:
         serializedVersion: 2
-        x: 640
-        y: 288
-        width: 32
-        height: 48
+        x: 1601
+        y: 721
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -994,12 +1029,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_20
       rect:
         serializedVersion: 2
-        x: 32
-        y: 240
-        width: 32
-        height: 48
+        x: 81
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1016,12 +1051,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_21
       rect:
         serializedVersion: 2
-        x: 64
-        y: 240
-        width: 32
-        height: 48
+        x: 161
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1038,12 +1073,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_22
       rect:
         serializedVersion: 2
-        x: 96
-        y: 240
-        width: 32
-        height: 48
+        x: 241
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1060,12 +1095,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_23
       rect:
         serializedVersion: 2
-        x: 128
-        y: 240
-        width: 32
-        height: 48
+        x: 321
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1082,12 +1117,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_24
       rect:
         serializedVersion: 2
-        x: 160
-        y: 240
-        width: 32
-        height: 48
+        x: 401
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1104,12 +1139,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_25
       rect:
         serializedVersion: 2
-        x: 192
-        y: 240
-        width: 32
-        height: 48
+        x: 481
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1126,12 +1161,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_26
       rect:
         serializedVersion: 2
-        x: 224
-        y: 240
-        width: 32
-        height: 48
+        x: 561
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1148,12 +1183,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_27
       rect:
         serializedVersion: 2
-        x: 256
-        y: 240
-        width: 32
-        height: 48
+        x: 641
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1170,12 +1205,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_28
       rect:
         serializedVersion: 2
-        x: 288
-        y: 240
-        width: 32
-        height: 48
+        x: 721
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1192,12 +1227,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_29
       rect:
         serializedVersion: 2
-        x: 320
-        y: 240
-        width: 32
-        height: 48
+        x: 801
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1214,12 +1249,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_30
       rect:
         serializedVersion: 2
-        x: 352
-        y: 240
-        width: 32
-        height: 48
+        x: 881
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1236,12 +1271,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_31
       rect:
         serializedVersion: 2
-        x: 384
-        y: 240
-        width: 32
-        height: 48
+        x: 961
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1258,12 +1293,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_32
       rect:
         serializedVersion: 2
-        x: 416
-        y: 240
-        width: 32
-        height: 48
+        x: 1041
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1280,12 +1315,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_33
       rect:
         serializedVersion: 2
-        x: 448
-        y: 240
-        width: 32
-        height: 48
+        x: 1121
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1302,12 +1337,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_34
       rect:
         serializedVersion: 2
-        x: 480
-        y: 240
-        width: 32
-        height: 48
+        x: 1201
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1324,12 +1359,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_35
       rect:
         serializedVersion: 2
-        x: 512
-        y: 240
-        width: 32
-        height: 48
+        x: 1281
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1346,12 +1381,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_36
       rect:
         serializedVersion: 2
-        x: 544
-        y: 240
-        width: 32
-        height: 48
+        x: 1361
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1368,12 +1403,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_37
       rect:
         serializedVersion: 2
-        x: 576
-        y: 240
-        width: 32
-        height: 48
+        x: 1441
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1390,12 +1425,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_38
       rect:
         serializedVersion: 2
-        x: 32
-        y: 192
-        width: 32
-        height: 48
+        x: 1521
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1412,12 +1447,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_39
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 32
-        height: 48
+        x: 1601
+        y: 601
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1434,12 +1469,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_40
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
-        width: 32
-        height: 48
+        x: 81
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1456,12 +1491,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_41
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
-        width: 32
-        height: 48
+        x: 161
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1478,12 +1513,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_42
       rect:
         serializedVersion: 2
-        x: 160
-        y: 192
-        width: 32
-        height: 48
+        x: 241
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1500,12 +1535,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_43
       rect:
         serializedVersion: 2
-        x: 192
-        y: 192
-        width: 32
-        height: 48
+        x: 321
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1522,12 +1557,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_44
       rect:
         serializedVersion: 2
-        x: 224
-        y: 192
-        width: 32
-        height: 48
+        x: 401
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1544,12 +1579,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_45
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
-        width: 32
-        height: 48
+        x: 481
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1566,12 +1601,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_46
       rect:
         serializedVersion: 2
-        x: 288
-        y: 192
-        width: 32
-        height: 48
+        x: 561
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1588,12 +1623,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_47
       rect:
         serializedVersion: 2
-        x: 320
-        y: 192
-        width: 32
-        height: 48
+        x: 641
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1610,12 +1645,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_48
       rect:
         serializedVersion: 2
-        x: 352
-        y: 192
-        width: 32
-        height: 48
+        x: 721
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1632,12 +1667,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_49
       rect:
         serializedVersion: 2
-        x: 384
-        y: 192
-        width: 32
-        height: 48
+        x: 801
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1654,12 +1689,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_50
       rect:
         serializedVersion: 2
-        x: 416
-        y: 192
-        width: 32
-        height: 48
+        x: 881
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1676,12 +1711,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_51
       rect:
         serializedVersion: 2
-        x: 448
-        y: 192
-        width: 32
-        height: 48
+        x: 961
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1698,12 +1733,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_52
       rect:
         serializedVersion: 2
-        x: 480
-        y: 192
-        width: 32
-        height: 48
+        x: 1041
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1720,12 +1755,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_53
       rect:
         serializedVersion: 2
-        x: 512
-        y: 192
-        width: 32
-        height: 48
+        x: 1121
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1742,12 +1777,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_54
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 48
+        x: 1201
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1764,12 +1799,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_55
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 48
+        x: 1281
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1786,12 +1821,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_56
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
-        width: 32
-        height: 48
+        x: 1361
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1808,12 +1843,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_57
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
-        width: 32
-        height: 48
+        x: 1441
+        y: 481
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1830,12 +1865,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_58
       rect:
         serializedVersion: 2
-        x: 160
-        y: 96
-        width: 32
-        height: 48
+        x: 81
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1852,12 +1887,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_59
       rect:
         serializedVersion: 2
-        x: 192
-        y: 96
-        width: 32
-        height: 48
+        x: 161
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1874,12 +1909,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_60
       rect:
         serializedVersion: 2
-        x: 224
-        y: 96
-        width: 32
-        height: 48
+        x: 241
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1896,12 +1931,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_61
       rect:
         serializedVersion: 2
-        x: 256
-        y: 96
-        width: 32
-        height: 48
+        x: 321
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1918,12 +1953,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_62
       rect:
         serializedVersion: 2
-        x: 320
-        y: 96
-        width: 32
-        height: 48
+        x: 401
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1940,12 +1975,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_63
       rect:
         serializedVersion: 2
-        x: 352
-        y: 96
-        width: 32
-        height: 48
+        x: 481
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1962,12 +1997,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_64
       rect:
         serializedVersion: 2
-        x: 384
-        y: 96
-        width: 32
-        height: 48
+        x: 561
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1984,12 +2019,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_65
       rect:
         serializedVersion: 2
-        x: 416
-        y: 96
-        width: 32
-        height: 48
+        x: 641
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2006,12 +2041,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_66
       rect:
         serializedVersion: 2
-        x: 448
-        y: 96
-        width: 32
-        height: 48
+        x: 721
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2028,12 +2063,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_67
       rect:
         serializedVersion: 2
-        x: 480
-        y: 96
-        width: 32
-        height: 48
+        x: 801
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2050,12 +2085,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_68
       rect:
         serializedVersion: 2
-        x: 512
-        y: 96
-        width: 32
-        height: 48
+        x: 881
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2072,12 +2107,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_69
       rect:
         serializedVersion: 2
-        x: 544
-        y: 96
-        width: 32
-        height: 48
+        x: 961
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2094,12 +2129,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_70
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
-        width: 32
-        height: 48
+        x: 1041
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2116,12 +2151,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_71
       rect:
         serializedVersion: 2
-        x: 64
-        y: 48
-        width: 32
-        height: 48
+        x: 1121
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2138,12 +2173,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_72
       rect:
         serializedVersion: 2
-        x: 96
-        y: 48
-        width: 32
-        height: 48
+        x: 1201
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2160,12 +2195,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_73
       rect:
         serializedVersion: 2
-        x: 128
-        y: 48
-        width: 32
-        height: 48
+        x: 1281
+        y: 361
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2182,12 +2217,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_74
       rect:
         serializedVersion: 2
-        x: 160
-        y: 48
-        width: 32
-        height: 48
+        x: 81
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2204,12 +2239,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_75
       rect:
         serializedVersion: 2
-        x: 192
-        y: 48
-        width: 32
-        height: 48
+        x: 161
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2226,12 +2261,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_76
       rect:
         serializedVersion: 2
-        x: 224
-        y: 48
-        width: 32
-        height: 48
+        x: 241
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2248,12 +2283,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_77
       rect:
         serializedVersion: 2
-        x: 256
-        y: 48
-        width: 32
-        height: 48
+        x: 321
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2270,12 +2305,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_78
       rect:
         serializedVersion: 2
-        x: 288
-        y: 48
-        width: 32
-        height: 48
+        x: 401
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2292,12 +2327,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_79
       rect:
         serializedVersion: 2
-        x: 320
-        y: 48
-        width: 32
-        height: 48
+        x: 481
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2314,12 +2349,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_80
       rect:
         serializedVersion: 2
-        x: 352
-        y: 48
-        width: 32
-        height: 48
+        x: 561
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2336,12 +2371,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_81
       rect:
         serializedVersion: 2
-        x: 384
-        y: 48
-        width: 32
-        height: 48
+        x: 641
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2358,12 +2393,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_82
       rect:
         serializedVersion: 2
-        x: 416
-        y: 48
-        width: 32
-        height: 48
+        x: 721
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2380,12 +2415,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_83
       rect:
         serializedVersion: 2
-        x: 448
-        y: 48
-        width: 32
-        height: 48
+        x: 801
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2402,12 +2437,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_84
       rect:
         serializedVersion: 2
-        x: 480
-        y: 48
-        width: 32
-        height: 48
+        x: 881
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2424,12 +2459,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_85
       rect:
         serializedVersion: 2
-        x: 512
-        y: 48
-        width: 32
-        height: 48
+        x: 961
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2446,12 +2481,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_86
       rect:
         serializedVersion: 2
-        x: 544
-        y: 48
-        width: 32
-        height: 48
+        x: 1041
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2468,12 +2503,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_87
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 48
+        x: 1121
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2490,12 +2525,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_88
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 48
+        x: 1201
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2512,12 +2547,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_89
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 48
+        x: 1281
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2534,12 +2569,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_90
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 48
+        x: 1361
+        y: 241
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2556,12 +2591,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_91
       rect:
         serializedVersion: 2
-        x: 352
-        y: 0
-        width: 32
-        height: 48
+        x: 81
+        y: 121
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2578,12 +2613,12 @@ TextureImporter:
       name: Pixel_Playing_Card_Set_YEWBI_92
       rect:
         serializedVersion: 2
-        x: 416
-        y: 0
-        width: 32
-        height: 48
+        x: 161
+        y: 121
+        width: 80
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2596,11 +2631,517 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_93
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 669632f5056332d00800000000000000
+      internalID: 946660065499375974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_94
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fedd0dd20c8a7c0d0800000000000000
+      internalID: -3402565450099270161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_95
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7b7855971fbf14a0800000000000000
+      internalID: -6620362819200582786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_96
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d74a23f870a9d000800000000000000
+      internalID: 61256511282366416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_97
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d461caa2b3cb2450800000000000000
+      internalID: 6065156495320900820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_98
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d22f9edb750300700800000000000000
+      internalID: 504456311672009261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_99
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20dcf298ac7059e00800000000000000
+      internalID: 1050754654527278338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_100
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51c492b11af7ed20800000000000000
+      internalID: 3307887405244399967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_101
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a8e86ad6de55420800000000000000
+      internalID: 2618259813587388960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_102
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07cfd2ce79dfb21b0800000000000000
+      internalID: -5680167676053422992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_103
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 831be2377715ca8e0800000000000000
+      internalID: -1680878987440639688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_104
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c87803fd943f9f0800000000000000
+      internalID: -435923515984081919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_105
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa30a32c0216a8ec0800000000000000
+      internalID: -3563929361784896593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_106
+      rect:
+        serializedVersion: 2
+        x: 1281
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c3fee5f0e41737b0800000000000000
+      internalID: -5244700284618345529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_107
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 121
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a6f282cd0032310800000000000000
+      internalID: 1378946856472504954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_108
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7db86759fb808f540800000000000000
+      internalID: 5041789401780620247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_109
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18de2ba63fafe9420800000000000000
+      internalID: 2638822355059797377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_110
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6f671df0ca8ce7f0800000000000000
+      internalID: -581937690353111185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_111
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc660f831f8bd39a0800000000000000
+      internalID: -6251637361538472244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_112
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a69d4b8710408e680800000000000000
+      internalID: -8725719873663739542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_113
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53cfba693753f4340800000000000000
+      internalID: 4850154094266678325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_114
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d70c3b64c747ac550800000000000000
+      internalID: 6181881515630379133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel_Playing_Card_Set_YEWBI_115
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 1
+        width: 80
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c9903aa1a3da5690800000000000000
+      internalID: -7612539528817894972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2ea507992153e5f4a8478ee3c83b46f4
+    spriteID: 51885f7d4fedac748bd26e68a6cecf38
     internalID: 0
     vertices: []
     indices: 
@@ -2613,7 +3154,23 @@ TextureImporter:
       Pixel_Playing_Card_Set_YEWBI_0: -4746617177699367258
       Pixel_Playing_Card_Set_YEWBI_1: 7736087899551737141
       Pixel_Playing_Card_Set_YEWBI_10: 2092870247132860893
+      Pixel_Playing_Card_Set_YEWBI_100: 3307887405244399967
+      Pixel_Playing_Card_Set_YEWBI_101: 2618259813587388960
+      Pixel_Playing_Card_Set_YEWBI_102: -5680167676053422992
+      Pixel_Playing_Card_Set_YEWBI_103: -1680878987440639688
+      Pixel_Playing_Card_Set_YEWBI_104: -435923515984081919
+      Pixel_Playing_Card_Set_YEWBI_105: -3563929361784896593
+      Pixel_Playing_Card_Set_YEWBI_106: -5244700284618345529
+      Pixel_Playing_Card_Set_YEWBI_107: 1378946856472504954
+      Pixel_Playing_Card_Set_YEWBI_108: 5041789401780620247
+      Pixel_Playing_Card_Set_YEWBI_109: 2638822355059797377
       Pixel_Playing_Card_Set_YEWBI_11: 9113082081996488241
+      Pixel_Playing_Card_Set_YEWBI_110: -581937690353111185
+      Pixel_Playing_Card_Set_YEWBI_111: -6251637361538472244
+      Pixel_Playing_Card_Set_YEWBI_112: -8725719873663739542
+      Pixel_Playing_Card_Set_YEWBI_113: 4850154094266678325
+      Pixel_Playing_Card_Set_YEWBI_114: 6181881515630379133
+      Pixel_Playing_Card_Set_YEWBI_115: -7612539528817894972
       Pixel_Playing_Card_Set_YEWBI_12: -2150996347887062589
       Pixel_Playing_Card_Set_YEWBI_13: -4475011688944804377
       Pixel_Playing_Card_Set_YEWBI_14: 5271868941088925202
@@ -2703,6 +3260,13 @@ TextureImporter:
       Pixel_Playing_Card_Set_YEWBI_90: 1310558369987463217
       Pixel_Playing_Card_Set_YEWBI_91: -7954978688365567743
       Pixel_Playing_Card_Set_YEWBI_92: -5207617511001853338
+      Pixel_Playing_Card_Set_YEWBI_93: 946660065499375974
+      Pixel_Playing_Card_Set_YEWBI_94: -3402565450099270161
+      Pixel_Playing_Card_Set_YEWBI_95: -6620362819200582786
+      Pixel_Playing_Card_Set_YEWBI_96: 61256511282366416
+      Pixel_Playing_Card_Set_YEWBI_97: 6065156495320900820
+      Pixel_Playing_Card_Set_YEWBI_98: 504456311672009261
+      Pixel_Playing_Card_Set_YEWBI_99: 1050754654527278338
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

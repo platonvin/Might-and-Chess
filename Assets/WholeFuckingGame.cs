@@ -2,37 +2,54 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+// megaclass that does everything
+// sometimes split into subclasses, sometimes not
+// there is no complexity difference for me, and C# compiler is trash so why not
 public class WholeFuckingGame : MonoBehaviour {
+    // blacks
     public GameObject B_Bishop;
     public GameObject B_King;
     public GameObject B_Knight;
     public GameObject B_Pawn;
     public GameObject B_Queen;
     public GameObject B_Rook;
-
+    // whites
     public GameObject W_Bishop;
     public GameObject W_King;
     public GameObject W_Knight;
     public GameObject W_Pawn;
     public GameObject W_Queen;
     public GameObject W_Rook;
-    
-    private Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
+
+    public GameObject C_Push;
+    public GameObject C_Haste;
+    public GameObject C_Slow;
+
+    Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
+    Dictionary<CardAbility, GameObject> cardPrefabs;
 
     // private PieceData[,] board = new PieceData[8, 8]; // 8x8 chess board
     // private Vector3[,] pieceInstanceStoredPositions = new Vector3[8, 8]; // 8x8 chess board
     // private GameObject[,] pieceInstances = new GameObject[8, 8]; // Store instances
-    private ChessPiece[,] board = new ChessPiece[8, 8];
+    ChessPiece[,] board = new ChessPiece[8, 8];
 
     [SerializeField]
-    public Vector3 board_left_bottom = new Vector3(-34.72f, 0, -29.43f);
+    public Vector3 boardLeftBottomPos = new Vector3(-34.72f, 0, -29.43f);
     [SerializeField]
-    public float single_cell_scale = (80.0f * ((142 - 7.0f * 2.0f) / (142.0f))) / 8.0f;
-    
-    private Vector2Int selectedBoardCell = new Vector2Int(0,0);
-    private bool is_piece_dragged = false;
-    private Vector3 dragging_pos;
-    // private bool is_anything_dragged = false;
+    public float singleCellScale = (80.0f * ((142 - 7.0f * 2.0f) / (142.0f))) / 8.0f;
+
+    Vector2Int selectedBoardCell = new Vector2Int(0, 0);
+    bool isPieceDragged = false;
+    Vector3 draggingMousePos;
+
+    bool isCardDragged = false;
+    bool isHandHovered = false;
+    Card draggedCard = null;  // ptr of the dragged card
+
+    DeckOfCards deck = new DeckOfCards();
+    HandOfCards hand = new HandOfCards();
+
 
     private void Awake() {
         // Initialize the dictionary with the appropriate prefab for each piece type and color
@@ -52,24 +69,49 @@ public class WholeFuckingGame : MonoBehaviour {
             { (PieceType.Queen, PieceColor.White), W_Queen },
             { (PieceType.Rook, PieceColor.White), W_Rook }
         };
+
+        cardPrefabs = new Dictionary<CardAbility, GameObject>
+        {
+            {CardAbility.Shift, C_Push},
+            {CardAbility.Haste, C_Haste},
+            {CardAbility.Slow, C_Slow},
+
+            {CardAbility.Clone, C_Slow},
+            {CardAbility.Barricade, C_Slow},
+            {CardAbility.Wrap, C_Slow},
+            {CardAbility.Wind, C_Slow},
+            {CardAbility.ExtraMove, C_Slow},
+            {CardAbility.ExtendedCastling, C_Slow},
+            {CardAbility.RandomEffect, C_Slow},
+            {CardAbility.Sleep, C_Slow},
+            {CardAbility.Heal, C_Slow},
+            {CardAbility.Resurrect, C_Slow},
+        };
     }
 
     void Start() {
         InitializeBoard();
+        deck.InitializeDeck(cardPrefabs, new Vector3(0, +2.5f, 0));
+        hand.AddCard(deck.DrawCard());
+        hand.AddCard(deck.DrawCard());
+        hand.AddCard(deck.DrawCard());
+        hand.OnMouseEnter();
     }
 
     void Update() {
         // Handle input and update board
         HandleInput();
-        if (is_piece_dragged) {
+        if (isPieceDragged) {
             UpdateDraggingPosition();
         }
-        if (is_piece_dragged) {
+        if (isPieceDragged) {
             if (board[selectedBoardCell.x, selectedBoardCell.y] != null) {
                 board[selectedBoardCell.x, selectedBoardCell.y].
-                    SetVisualPosition(dragging_pos);
+                    SetVisualPosition(draggingMousePos);
             }
         }
+        hand.wholeHandHovered = isHandHovered;
+        hand.UpdateHandDisplay();
     }
 
     void InitializeBoard() {
@@ -105,9 +147,9 @@ public class WholeFuckingGame : MonoBehaviour {
         float y_offset_in_cells = ((float)(y) - 3.5f);
 
         Vector3 vector3 = new Vector3(
-            x_offset_in_cells * single_cell_scale,
+            x_offset_in_cells * singleCellScale,
             2.5f,
-            y_offset_in_cells * single_cell_scale);
+            y_offset_in_cells * singleCellScale);
         return vector3;
     }
     Quaternion getRot() {
@@ -120,47 +162,79 @@ public class WholeFuckingGame : MonoBehaviour {
     }
 
     void HandleInput() {
-        // LBM click
+        Vector3 mousePosition = Input.mousePosition;
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+
+        LayerMask layerMask = LayerMask.GetMask("Cards");
+
+
+        // WHY cards somewhat separate? They are not grid-snapped
+        // i would also write collideres myself for it if it was an option
+        isHandHovered = false;
+        if (Physics.Raycast(ray.origin, new Vector3 (0, -1, 0), out hit, Mathf.Infinity, layerMask)) {
+           isHandHovered = true;
+            Debug.Log("Did Hit a card");
+        } 
+        
+        // else {
+        //     Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+        //     Debug.Log("Did not Hit");
+        // }
+        // Hover detection: update hover state continuously
+        // isHandHovered = false;
+        // if (Physics.Raycast(ray, out hit)) {
+        //     Debug.Log("" + hit.collider.tag);
+        // }
+        // if (hit.collider.tag =="Card")
+        // if (hit.collider.CompareTag("Card"))
+
+        // isHandHovered = true;
+        // Debug.Log("Card hovered");
+        // }
+
+
+        // RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mousePosition), Vector2.zero);
+
+        // if(hitInfo)
+        // {
+        //     Debug.Log( hitInfo.rigidbody.gameObject.name );
+        // }
+
+        // Handle left mouse button down (LMB click)
         if (Input.GetMouseButtonDown(0)) {
-            // If already in hand
-            if (is_piece_dragged){
-                // nothing
-            } else {
-                Vector3 mousePosition = Input.mousePosition;
-                Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit)) {
+            if (Physics.Raycast(ray, out hit)) {
+                // Check if the clicked object is a card
+                if (hit.collider.CompareTag("Card")) {
+                    draggedCard = hit.collider.GetComponent<Card>();
+                    if (draggedCard != null) {
+                        isCardDragged = true;
+                        Debug.Log("Card selected for drag");
+                    }
+                } else {
+                    // Handle board cell clicks
                     Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                    Debug.Log("down" + clickedBoardCell.x + " " + clickedBoardCell.z);
+                    bool validTargetCell = IsPosInBoardBounds(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z)) &&
+                                        board[clickedBoardCell.x, clickedBoardCell.z] != null;
 
-                    bool valid_target_cell =
-                        IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z)) &&
-                        (board[clickedBoardCell.x, clickedBoardCell.z] != null);
-
-                    // so can drag the figure
-                    if (valid_target_cell) {
-                        Debug.Log("down" + "valid");
+                    // Enable dragging if a valid cell is clicked
+                    if (validTargetCell) {
                         selectedBoardCell = new Vector2Int(clickedBoardCell.x, clickedBoardCell.z);
-                        is_piece_dragged = true;
+                        isPieceDragged = true;
                     }
                 }
-
             }
-
         }
 
+        // Handle left mouse button release (LMB up)
         if (Input.GetMouseButtonUp(0)) {
-            // LMB up
-            if (is_piece_dragged){
-                Vector3 mousePosition = Input.mousePosition;
-                Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit)) {
+            if (isPieceDragged) {
+                if (Physics.Raycast(ray, out hit)) {
                     Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                    Debug.Log("up" + clickedBoardCell.x + " " + clickedBoardCell.z);
-                    bool valid_target_cell = IsValidPosition(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
+                    bool validTargetCell = IsPosInBoardBounds(new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
 
-                    if (valid_target_cell) {
-                        Debug.Log("up" + "valid");
-                        // Move the piece without validation for now
+                    if (validTargetCell) {
+                        Debug.Log($"Valid move to {clickedBoardCell}");
                         bool moved = TryMovePiece(selectedBoardCell, new Vector2Int(clickedBoardCell.x, clickedBoardCell.z));
                         if (moved) {
                             board[clickedBoardCell.x, clickedBoardCell.z].SetVisualPosition(getPos(clickedBoardCell.x, clickedBoardCell.z));
@@ -168,33 +242,34 @@ public class WholeFuckingGame : MonoBehaviour {
                     }
                 }
 
-                // reset visual position so 
-                // unity is so fucked up, i dont even know. Same in cpp-vk is like 100 lines and 100mb of project files
-                if (board[selectedBoardCell.x, selectedBoardCell.y] != null)
+                // Reset visual position
+                if (board[selectedBoardCell.x, selectedBoardCell.y] != null) {
                     board[selectedBoardCell.x, selectedBoardCell.y].SetVisualPosition(getPos(selectedBoardCell.x, selectedBoardCell.y));
-                
-                is_piece_dragged = false;
+                }
+
+                isPieceDragged = false;
             }
         }
     }
+
 
     void UpdateDraggingPosition() {
         Vector3 mousePosition = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit)) {
-            dragging_pos = hit.point;
+            draggingMousePos = hit.point;
         }
     }
 
     Vector3Int ScreenToBoardPosition(Vector3 screenPosition) {
         Debug.Log($"BoardPosition:" + screenPosition.x + " " + screenPosition.y + " " + screenPosition.z);
-        int x = Mathf.FloorToInt((screenPosition.x - board_left_bottom.x) / single_cell_scale);
-        int z = Mathf.FloorToInt((screenPosition.z - board_left_bottom.z) / single_cell_scale);
+        int x = Mathf.FloorToInt((screenPosition.x - boardLeftBottomPos.x) / singleCellScale);
+        int z = Mathf.FloorToInt((screenPosition.z - boardLeftBottomPos.z) / singleCellScale);
         return new Vector3Int(x, 0, z);
     }
 
     bool TryMovePiece(Vector2Int from, Vector2Int to) {
-        if (!IsValidPosition(from) || !IsValidPosition(to)) return false;
+        if (!IsPosInBoardBounds(from) || !IsPosInBoardBounds(to)) return false;
         if (from == to) return false;
 
         ChessPiece piece = board[from.x, from.y];
@@ -242,7 +317,7 @@ public class WholeFuckingGame : MonoBehaviour {
 
     bool ValidateMove(PieceType type, Vector2Int from, Vector2Int to) {
         // return true;
-        
+
         // // Fuck rtti
         switch (type) {
             case PieceType.Pawn:
@@ -262,57 +337,6 @@ public class WholeFuckingGame : MonoBehaviour {
         return true;
     }
 
-    bool ValidatePawnMove(Vector2Int from, Vector2Int to, PieceColor color) {
-        int direction = (color == PieceColor.White) ? 1 : -1;
-        int startRow = (color == PieceColor.White) ? 1 : 6;
-
-        // Regular move forward
-        if (from.x == to.x && to.y == from.y + direction && board[to.x, to.y].Type == PieceType.None)
-            return true;
-
-        // Double move from start position
-        if (from.x == to.x && from.y == startRow && to.y == from.y + 2 * direction && board[to.x, to.y].Type == PieceType.None)
-            return true;
-
-        // Capture move
-        if (Mathf.Abs(from.x - to.x) == 1 && to.y == from.y + direction && board[to.x, to.y].Color != color && board[to.x, to.y].Type != PieceType.None)
-            return true;
-
-        return false;
-    }
-
-    bool ValidateRookMove(Vector2Int from, Vector2Int to) {
-        if (from.x != to.x && from.y != to.y) return false; // Must be a straight line
-
-        // Check for obstacles in the way
-        if (!IsPathClear(from, to)) return false;
-
-        return true;
-    }
-
-    bool ValidateKnightMove(Vector2Int from, Vector2Int to) {
-        int dx = Mathf.Abs(from.x - to.x);
-        int dy = Mathf.Abs(from.y - to.y);
-        return (dx == 2 && dy == 1) || (dx == 1 && dy == 2);
-    }
-
-    bool ValidateBishopMove(Vector2Int from, Vector2Int to) {
-        if (Mathf.Abs(from.x - to.x) != Mathf.Abs(from.y - to.y)) return false; // Must move diagonally
-
-        // Check for obstacles
-        if (!IsPathClear(from, to)) return false;
-
-        return true;
-    }
-
-    bool ValidateQueenMove(Vector2Int from, Vector2Int to) {
-        return ValidateRookMove(from, to) || ValidateBishopMove(from, to);
-    }
-
-    bool ValidateKingMove(Vector2Int from, Vector2Int to) {
-        return Mathf.Abs(from.x - to.x) <= 1 && Mathf.Abs(from.y - to.y) <= 1;
-    }
-
     bool IsPathClear(Vector2Int from, Vector2Int to) {
         int dx = (int)Mathf.Sign(to.x - from.x);
         int dy = (int)Mathf.Sign(to.y - from.y);
@@ -328,21 +352,15 @@ public class WholeFuckingGame : MonoBehaviour {
         return true;
     }
 
-    bool IsValidPosition(Vector2Int pos) {
+    bool IsPosInBoardBounds(Vector2Int pos) {
         return pos.x >= 0 && pos.x < 8 && pos.y >= 0 && pos.y < 8;
     }
 
-    // Other useful functions
-
-    // void PrintBoard() {
-    //     for (int y = 7; y >= 0; y--) {
-    //         string row = "";
-    //         for (int x = 0; x < 8; x++) {
-    //             row += $"{board[x, y].Type} ";
-    //         }
-    //         Debug.Log(row);
-    //     }
-    // }
+    void ApplyCardEffect(Card card, Vector3Int targetCell) {
+        // Implement card effect logic, e.g., move pieces, apply abilities, etc.
+        Debug.Log($"Applying {card.Ability} to cell {targetCell}");
+        card.Destroy();  // Remove the card after use, if necessary
+    }
 
     bool IsInCheck(PieceColor color) {
         // Logic to determine if the king of a given color is in check

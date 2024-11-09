@@ -3,27 +3,61 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeckDef {
-    List<KeyValuePair<CardAbility, int>> defs = new List<KeyValuePair<CardAbility, int>>();
+    public Dictionary<CardAbility, int> defs = new Dictionary<CardAbility, int>();
 
-    void defineDeck() {
-        
-        defs.Add(new KeyValuePair<CardAbility, int>(CardAbility.type1, 6));
+    public void Define() {
+        DefineDeck();
     }
 
-    void initDeck() {
-        
+    public void DefineDeck() {
+        defs[CardAbility.Shift] = 2;
+        defs[CardAbility.Haste] = 1;
+        defs[CardAbility.Slow] = 1;
+        // defs[CardAbility.Clone] = 1;
+        // defs[CardAbility.Barricade] = 2;
+        // defs[CardAbility.Wrap] = 1;
+        // defs[CardAbility.Wind] = 1;
+        // defs[CardAbility.ExtraMove] = 2;
+        // defs[CardAbility.ExtendedCastling] = 1;
+        // defs[CardAbility.RandomEffect] = 1;
+        // defs[CardAbility.Sleep] = 2;
+        // defs[CardAbility.Heal] = 3;
+        // defs[CardAbility.Resurrect] = 1;
     }
 }
 
-// also has sprite rendered
 public class DeckOfCards {
-    List<SingleCard> cards = new List<SingleCard>();
+    private List<Card> cards = new List<Card>();
 
-    void defineDeck() {
-        
+    public void InitializeDeck(Dictionary<CardAbility, GameObject> cardPrefabs, Vector3 initialPosition) {
+        DeckDef deckDef = new DeckDef();
+        deckDef.Define();
+
+        foreach (var (ability, count) in deckDef.defs) {
+            for (int i = 0; i < count; i++) {
+                // Create unique instances of cards for each ability
+                var card = new Card(ability, CardCastType.None, 0, cardPrefabs[ability], initialPosition);
+                cards.Add(card);
+                card.flip();
+            }
+        }
     }
 
-    void initDeck() {
-        
+    public Card DrawCard() {
+        if (cards.Count > 0) {
+            Card card = cards[0];
+            cards.RemoveAt(0);
+            return card;
+        }
+        return null;
+    }
+
+    public void Shuffle() {
+        for (int i = 0; i < cards.Count; i++) {
+            Card temp = cards[i];
+            int randomIndex = Random.Range(i, cards.Count);
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
+        }
     }
 }
