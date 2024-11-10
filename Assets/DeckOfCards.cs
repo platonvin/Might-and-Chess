@@ -10,9 +10,9 @@ public class DeckDef {
     }
 
     public void DefineDeck() {
-        defs[CardAbility.Shift] = 2;
-        defs[CardAbility.Haste] = 1;
-        defs[CardAbility.Slow] = 1;
+        defs[CardAbility.Shift] = 4;
+        defs[CardAbility.Haste] = 2;
+        defs[CardAbility.Slow] = 3;
         // defs[CardAbility.Clone] = 1;
         // defs[CardAbility.Barricade] = 2;
         // defs[CardAbility.Wrap] = 1;
@@ -36,9 +36,9 @@ public class DeckOfCards {
         foreach (var (ability, count) in deckDef.defs) {
             for (int i = 0; i < count; i++) {
                 // Create unique instances of cards for each ability
-                var card = new Card(ability, CardCastType.None, 0, cardPrefabs[ability], initialPosition);
-                cards.Add(card);
+                var card = new Card(ability, CardCastType.None, cardPrefabs[ability], initialPosition);
                 card.flip();
+                cards.Add(card);
             }
         }
     }

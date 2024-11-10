@@ -302,7 +302,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 42
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 100, z: -1}
+  m_LocalPosition: {x: 0, y: 100, z: -8}
   m_LocalScale: {x: 1, y: 32, z: 32}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -421,8 +421,9 @@ MonoBehaviour:
   C_Push: {fileID: 7237909578173596284, guid: 78714ea22bf80a84ba5186c7bc41f696, type: 3}
   C_Haste: {fileID: 7237909578173596284, guid: 88c12f25be6470342a7ca7c384c1bcf4, type: 3}
   C_Slow: {fileID: 7237909578173596284, guid: 2fe0554e12dac4543bb17ac7773a343b, type: 3}
-  boardLeftBottomPos: {x: -34.72, y: 0, z: -29.43}
+  boardLeftBottomPos: {x: -36, y: 0, z: -36}
   singleCellScale: 9.014084
+  deckPosition: {x: -60, y: 2.5, z: 0}
 --- !u!4 &474924491
 Transform:
   m_ObjectHideFlags: 0

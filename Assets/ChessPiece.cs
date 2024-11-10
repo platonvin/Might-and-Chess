@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 // also has sprite rendered
@@ -5,26 +6,30 @@ public class ChessPiece {
     public PieceType Type { get; private set; }
     public PieceColor Color { get; private set; }
     public GameObject Instance { get; private set; }
+    private Vector3 visualPosition;
 
-    private Vector3 position;
+    public int Speed { get; set; } = 0; //[-1; +1]
+    public int SleepLeft { get; set; } = 0;
+    //-1 means forever. 0 means is removed right now
+    public int TimeInTurnsLeft { get; set; } = -1; 
 
     public ChessPiece(PieceType type, PieceColor color, GameObject prefab, Vector3 initialPosition) {
         Type = type;
         Color = color;
-        position = initialPosition;
+        visualPosition = initialPosition;
         Instance = GameObject.Instantiate(prefab, initialPosition, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
     }
 
-    public Vector3 GetVisualPosition() => position;
+    public Vector3 GetVisualPosition() => visualPosition;
 
     public void SetVisualPosition(Vector3 newPosition) {
-        position = newPosition;
+        visualPosition = newPosition;
         UpdateTransform();
     }
 
     private void UpdateTransform() {
         if (Instance != null) {
-            Instance.transform.SetPositionAndRotation(position, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
+            Instance.transform.SetPositionAndRotation(visualPosition, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
         }
     }
 
@@ -36,9 +41,13 @@ public class ChessPiece {
 }
 
 public enum PieceType {
-    None, Pawn, Rook, Knight, Bishop, Queen, King
+    None, 
+    Pawn, Rook, Knight, Bishop, Queen, King,
+    Barricade,
 }
 
 public enum PieceColor {
-    None, White, Black
+    None, 
+    White, Black,
+    Neutral,
 }
