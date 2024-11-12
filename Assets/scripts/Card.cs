@@ -84,7 +84,7 @@ public class Card {
         this.manaImagePrefab = manaImagePrefab;
 
         // Instantiate the card GameObject
-        Instance = GameObject.Instantiate(cardPrefab, initialPosition, Quaternion.LookRotation(new Vector3(0f, flipped ? -1f : +1f, 0f)));
+        Instance = GameObject.Instantiate(cardPrefab, initialPosition, Quaternion.LookRotation(new(0f, flipped ? -1f : +1f, 0f)));
 
         // Create UI elements as children of the card instance
         CreateDescriptionText(descriptionTextPrefab, description);
@@ -106,10 +106,17 @@ public class Card {
         manaContainerObject.transform.SetParent(Instance.transform);
         manaContainer = manaContainerObject.transform;
 
-        // Add mana icons according to the mana cost
+        manaContainer.localPosition = new(-0.327f, 0.5f, -0.001f); // z cause idk unity is bullshit
+        manaContainer.localRotation = Quaternion.identity;
+        // Adjust the spacing between icons based on mana cost
+
+        float iconSpacing = 0.9f;  // Adjust as needed
+        float totalWidth = (manaCost - 1) * iconSpacing;  // Calculate total width of icons
+
+        // Center each icon within manaContainer
         for (int i = 0; i < manaCost; i++) {
             GameObject manaIcon = GameObject.Instantiate(manaImagePrefab, manaContainer);
-            manaIcon.transform.localPosition = new Vector3(i * 0.5f, 0, 0);  // Adjust spacing as needed
+            manaIcon.transform.localPosition = new(i * iconSpacing, 0, -0.001f);  // Centered position
         }
     }
 
@@ -124,7 +131,7 @@ public class Card {
 
     private void UpdateTransform() {
         if (Instance != null) {
-            Instance.transform.SetPositionAndRotation(Position, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
+            Instance.transform.SetPositionAndRotation(Position, Quaternion.LookRotation(new(0f, -1f, 0f)));
         }
     }
 
@@ -206,8 +213,8 @@ public class Card {
         Debug.Log(clonePos.x + "" + clonePos.y);
         // clone lives 2 turns
         board.placeNewPiece(piece.Type, piece.Color, clonePos.x, clonePos.y);
-        board.getPiece(x, y).isClone = true;
-        board.getPiece(x, y).TimeInTurnsLeft = 3;
+        board.getPiece(clonePos.x, clonePos.y).isClone = true;
+        board.getPiece(clonePos.x, clonePos.y).TimeInTurnsLeft = 3;
         return true;
     }
 

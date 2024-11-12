@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 enum Dragged {
     None,
@@ -16,35 +17,34 @@ enum Dragged {
 public class WholeFuckingGame : MonoBehaviour {
     // blacks
     public GameObject B_Bishop;
-        public GameObject B_King;
-        public GameObject B_Knight;
-        public GameObject B_Pawn;
-        public GameObject B_Queen;
-        public GameObject B_Rook;
+    public GameObject B_King;
+    public GameObject B_Knight;
+    public GameObject B_Pawn;
+    public GameObject B_Queen;
+    public GameObject B_Rook;
     // whites
     public GameObject W_Bishop;
-        public GameObject W_King;
-        public GameObject W_Knight;
-        public GameObject W_Pawn;
-        public GameObject W_Queen;
-        public GameObject W_Rook;
+    public GameObject W_King;
+    public GameObject W_Knight;
+    public GameObject W_Pawn;
+    public GameObject W_Queen;
+    public GameObject W_Rook;
     public GameObject C_Push;
-        public GameObject C_Haste;
-        public GameObject C_Slow;
-        public GameObject C_Clone;
-        public GameObject C_Blind;
-        public GameObject C_Dispel;
-        public GameObject C_Armageddon;
-        public GameObject C_AntiMagic;
-        public GameObject C_MagicArrow;
+    public GameObject C_Haste;
+    public GameObject C_Slow;
+    public GameObject C_Clone;
+    public GameObject C_Blind;
+    public GameObject C_Dispel;
+    public GameObject C_Armageddon;
+    public GameObject C_AntiMagic;
+    public GameObject C_MagicArrow;
     public GameObject A_Selector;
     public GameObject A_Mana;
     public GameObject T_CardDescription;
 
     Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
     Dictionary<CardAbility, GameObject> cardPrefabs;
-
-
+    // C# made me love C++
 
     [SerializeField]
     public Vector3 boardLeftBottomPos = new Vector3(-34.72f, 0, -29.43f);
@@ -69,7 +69,14 @@ public class WholeFuckingGame : MonoBehaviour {
     public HandOfCards hand = new HandOfCards();
     public PieceColor WhoseTurn = PieceColor.White;
 
+    // actual state that does something apart from fixing unity
     int movesLeft = 1;
+    const int MAX_MANA = 8;
+    int manaLeft = MAX_MANA;
+    private Transform manaContainer;
+    private List<GameObject> manaIcons = new();
+    [SerializeField]
+    public Vector3 manaContainerPos;
 
     private void Awake() {
         // Initialize the dictionary with the appropriate prefab for each piece type and color
@@ -116,17 +123,53 @@ public class WholeFuckingGame : MonoBehaviour {
     }
 
     void Start() {
-        deck.InitializeDeck(cardPrefabs, deckPosition, 
+        deck.initDeck(cardPrefabs, deckPosition,
                             A_Mana, T_CardDescription);
-        deck.Shuffle();
+        deck.shuffle();
 
         Card card;
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
-        card = deck.DrawCard(); if (card != null) hand.AddCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+
+        CreateManaDisplay(manaLeft);
+    }
+
+    // Initializes mana display with a specified amount
+    private void CreateManaDisplay(int startingMana) {
+        manaLeft = startingMana;
+
+        // Create a container for the mana icons
+        GameObject manaContainerObject = new GameObject("ManaContainer");
+        manaContainerObject.transform.SetParent(this.transform);
+        manaContainer = manaContainerObject.transform;
+
+        // Position and rotation for the container
+        manaContainer.localPosition = manaContainerPos;
+        manaContainer.localRotation = Quaternion.Euler(new(90, 0, 0));
+        manaContainer.localScale = new(4, 4, 4);
+
+        // Set spacing between icons
+        float iconSpacing = 0.9f;
+        float totalWidth = (startingMana - 1) * iconSpacing;
+
+        // Create and center each mana icon in the container
+        for (int i = 0; i < startingMana; i++) {
+            GameObject manaIcon = Instantiate(A_Mana, manaContainer);
+            manaIcon.transform.localPosition = new Vector3(0, i * iconSpacing - totalWidth / 2, 0);
+            manaIcons.Add(manaIcon);
+        }
+    }
+
+    // Update mana display when mana changes
+    public void UpdateManaDisplay() {
+        // Activate or deactivate mana icons based on current mana
+        for (int i = 0; i < manaIcons.Count; i++) {
+            manaIcons[i].SetActive(i < manaLeft);
+        }
     }
 
     void Update() {
@@ -144,7 +187,9 @@ public class WholeFuckingGame : MonoBehaviour {
             draggedCard.SetPosition(draggingMousePos);
         }
         hand.wholeHandHovered = isHandHovered;
-        hand.UpdateHandDisplay();
+        hand.updateHowHandDisplayed();
+
+        UpdateManaDisplay();
 
         int selected_card_from_hand = hand.findSelected();
 
@@ -153,10 +198,15 @@ public class WholeFuckingGame : MonoBehaviour {
 
     void Turn() {
         movesLeft -= 1;
-        if(movesLeft == 0){
+        if (movesLeft == 0) {
             switchWhoseTurn();
         }
         board.Turn();
+
+        // give player 2 cards
+        Card card;
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
+        card = deck.drawCard(); if (card != null) hand.addCard(card);
 
         // reset
         movesLeft = 1;
@@ -188,19 +238,19 @@ public class WholeFuckingGame : MonoBehaviour {
                 if (cardSelected != -1) {
                     // play cardSelected
                     // so now ref is in our mouse, and not updated by hand anymore
-                    draggedCard = hand.DrawCard(cardSelected);
+                    draggedCard = hand.drawCard(cardSelected);
                     dragged = Dragged.Card;
                 } else {
                     // Handle board cell clicks
                     Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                    bool validTargetCell = 
+                    bool validTargetCell =
                         board.IsPosInBoardBounds(new ivec2(clickedBoardCell.x, clickedBoardCell.z)) &&
                         board.getPiece(clickedBoardCell.x, clickedBoardCell.z) != null
                     ;
 
                     // Enable dragging if a valid cell is clicked
                     if (validTargetCell) {
-                        if(board.getPiece(clickedBoardCell.x, clickedBoardCell.z).Color == WhoseTurn) {
+                        if (board.getPiece(clickedBoardCell.x, clickedBoardCell.z).Color == WhoseTurn) {
                             selectedBoardCell = new ivec2(clickedBoardCell.x, clickedBoardCell.z);
                             dragged = Dragged.ChessPiece;
                             //show possible moves when a piece dragged
@@ -220,7 +270,7 @@ public class WholeFuckingGame : MonoBehaviour {
                     bool validTargetCell = board.IsPosInBoardBounds(new ivec2(clickedBoardCell.x, clickedBoardCell.z));
 
                     if (validTargetCell) {
-                        if(board.getPiece(selectedBoardCell).Color == WhoseTurn) {
+                        if (board.getPiece(selectedBoardCell).Color == WhoseTurn) {
                             Debug.Log($"Valid move to {clickedBoardCell}");
                             bool moved = board.tryMovePiece(selectedBoardCell, new ivec2(clickedBoardCell.x, clickedBoardCell.z));
                             if (moved) {
@@ -251,17 +301,26 @@ public class WholeFuckingGame : MonoBehaviour {
 
                 if (validTargetCell) {
                     Debug.Log("card casted on" + clickedBoardCell);
-                    bool applied = draggedCard.tryApplyEffect(board, clickedBoardCell.x, clickedBoardCell.y, this);
-                    if (applied) {
-                        draggedCard.Destroy();
-                        draggedCard = null; // free and remove the card
-                        // dragged = Dragged.None;
+                    DeckDef deckDef = DeckDef.Instance;
+                    int appliedManaCost = deckDef.defs[draggedCard.Ability].Item2;
+
+                    if (manaLeft >= appliedManaCost) {
+                        manaLeft -= appliedManaCost;
+                        bool applied = draggedCard.tryApplyEffect(board, clickedBoardCell.x, clickedBoardCell.y, this);
+                        if (appliedManaCost > 0) {
+                            draggedCard.Destroy();
+                            draggedCard = null; // free and remove the card
+                            UpdateManaDisplay();
+                            // dragged = Dragged.None;
+                        } else {
+                            hand.addCard(draggedCard);
+                        }
                     } else {
-                        hand.AddCard(draggedCard);
+                        hand.addCard(draggedCard);
                     }
                 } else {
                     // return back to the hand
-                    hand.AddCard(draggedCard);
+                    hand.addCard(draggedCard);
                 }
 
                 dragged = Dragged.None;

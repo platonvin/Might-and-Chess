@@ -24,14 +24,14 @@ public class HandOfCards {
     private int hoveredCardIndex = -1;
     public bool wholeHandHovered = false;
 
-    public void AddCard(Card card) {
+    public void addCard(Card card) {
         Debug.Assert(card != null);
         cards.Add(card);
-        InitializeArrays();
-        UpdateHandDisplay();
+        initArrays();
+        updateHowHandDisplayed();
     }
 
-    private void InitializeArrays() {
+    private void initArrays() {
         int count = cards.Count;
         Array.Resize<float>(ref targetAngles, count);
         Array.Resize<float>(ref targetRadii, count);
@@ -39,22 +39,22 @@ public class HandOfCards {
         Array.Resize<float>(ref visualRadii, count);
     }
 
-    public void RemoveCard(int id) {
+    public void removeCard(int id) {
         Debug.Assert(id >= 0 && id < cards.Count);
         cards[id].Destroy();
         cards.RemoveAt(id);
-        UpdateHandDisplay();
+        updateHowHandDisplayed();
     }
 
-    public Card DrawCard(int id) {
+    public Card drawCard(int id) {
         Debug.Assert(id >= 0 && id < cards.Count);
         Card card = cards[id];
         cards.RemoveAt(id);
-        UpdateHandDisplay();
+        updateHowHandDisplayed();
         return card;
     }
 
-    public void UpdateHandDisplay() {
+    public void updateHowHandDisplayed() {
         float deltaTime = Time.deltaTime;
 
         int cardCount = cards.Count;
@@ -65,7 +65,7 @@ public class HandOfCards {
 
         for (int i = 0; i < cardCount; i++) {
             // Calculate the base angle offset for even distribution
-            float baseAngleOffset = (i - midIndex - 0.5f) * RadialAngle - RadialAngle/2.0f;
+            float baseAngleOffset = (i - midIndex - 0.5f) * RadialAngle - RadialAngle / 2.0f;
 
             // Set target radius for hovered card and adjust angles
             if (i == hoveredCardIndex) {
@@ -106,7 +106,7 @@ public class HandOfCards {
             );
 
             // Slight vertical offset for card stacking effect
-            cardPosition.y = 2.5f + ((float)i) * 0.1f;
+            cardPosition.y = 2.5f + i * 0.1f;
 
             // Update card's position smoothly
             cards[i].SetPosition(cardPosition);

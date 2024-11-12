@@ -3,14 +3,17 @@ guid: e09528492a3d8a8419fced309cef509e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6554736390298987251
-    second: cursor_0
+      213: 2784468965456250579
+    second: mana_0
   - first:
-      213: -577436947000661451
-    second: cursor_1
+      213: 7127817309117235897
+    second: mana_1
   - first:
-      213: 8344927208098896504
-    second: cursor_2
+      213: 3461099566686742665
+    second: mana_2
+  - first:
+      213: 4410400857497064633
+    second: mana_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cursor_0
+      name: mana_0
       rect:
         serializedVersion: 2
         x: 2
         y: 2
         width: 12
-        height: 13
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3fae81cb40a17fa50800000000000000
-      internalID: 6554736390298987251
+      spriteID: 3d68e1675cb64a620800000000000000
+      internalID: 2784468965456250579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cursor_1
+      name: mana_1
       rect:
         serializedVersion: 2
         x: 18
         y: 2
         width: 12
-        height: 13
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 53ae6d5f7288cf7f0800000000000000
-      internalID: -577436947000661451
+      spriteID: 9b240dde3181be260800000000000000
+      internalID: 7127817309117235897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cursor_2
+      name: mana_2
       rect:
         serializedVersion: 2
-        x: 35
+        x: 34
         y: 2
-        width: 11
-        height: 10
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +168,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 87a1a3b15132fc370800000000000000
-      internalID: 8344927208098896504
+      spriteID: 9882f9cd7bb480030800000000000000
+      internalID: 3461099566686742665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mana_3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 2
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4d03c6634e43d30800000000000000
+      internalID: 4410400857497064633
       vertices: []
       indices: 
       edges: []
@@ -198,9 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cursor_0: 6554736390298987251
-      cursor_1: -577436947000661451
-      cursor_2: 8344927208098896504
+      mana_0: 2784468965456250579
+      mana_1: 7127817309117235897
+      mana_2: 3461099566686742665
+      mana_3: 4410400857497064633
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

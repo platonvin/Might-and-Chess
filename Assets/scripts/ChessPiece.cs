@@ -45,13 +45,13 @@ public class ChessPiece {
 }
 
 public enum PieceType {
-    None, 
+    None,
     Pawn, Rook, Knight, Bishop, Queen, King,
     Barricade,
 }
 
 public enum PieceColor {
-    None, 
+    None,
     White, Black,
     Neutral,
 }

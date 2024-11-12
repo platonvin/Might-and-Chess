@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Unity.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+
+// nullptr chess piece is literally no chess piece
+// manages chess pieces on a board and some random pieces of logic completely unrelated with physical chess board if you do not have human common sense 
 public class Board {
     private ChessPiece[,] board;
     private Vector3 boardLeftBottomPos;
@@ -23,32 +24,33 @@ public class Board {
         InitializeBoard();
     }
 
-    public void Turn(){
-        for (int x = 0; x < 8; x++){
-        for (int y = 0; y < 8; y++){
-            ChessPiece piece = board[x,y];
-            if(piece == null) continue;
+    public void Turn() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                ChessPiece piece = board[x, y];
+                if (piece == null) continue;
 
-            piece.SleepLeft -= 1;
-            piece.antiMagicLeft -= 1;
-            piece.TimeInTurnsLeft -= 1;
-            piece.Speedleft -= 1;
+                piece.SleepLeft -= 1;
+                piece.antiMagicLeft -= 1;
+                piece.TimeInTurnsLeft -= 1;
+                piece.Speedleft -= 1;
 
-            piece.SleepLeft = Math.Clamp(piece.SleepLeft, 0, 10);
-            piece.antiMagicLeft = Math.Clamp(piece.antiMagicLeft, 0, 10);
-            piece.TimeInTurnsLeft = Math.Clamp(piece.TimeInTurnsLeft, 0, 10);
-            piece.Speedleft = Math.Clamp(piece.Speedleft, 0, 10);
+                piece.SleepLeft = Math.Clamp(piece.SleepLeft, 0, 10);
+                piece.antiMagicLeft = Math.Clamp(piece.antiMagicLeft, 0, 10);
+                piece.TimeInTurnsLeft = Math.Clamp(piece.TimeInTurnsLeft, 0, 10);
+                piece.Speedleft = Math.Clamp(piece.Speedleft, 0, 10);
 
-            // if()
-            // if(piece.SleepLeft == 0) {}
-            // if(piece.antiMagicLeft == 0) {}
-            if(piece.TimeInTurnsLeft == 0) {
-                if(piece.isClone) {
-                    destroyPiece(x,y);
+                // if()
+                // if(piece.SleepLeft == 0) {}
+                // if(piece.antiMagicLeft == 0) {}
+                if (piece.TimeInTurnsLeft == 0) {
+                    if (piece.isClone) {
+                        destroyPiece(x, y);
+                    }
                 }
+                if (piece.Speedleft == 0) { piece.SpeedLevel = 0; }
             }
-            if(piece.Speedleft == 0) {piece.SpeedLevel = 0;}
-        }}
+        }
     }
 
     public void InitializeBoard() {
@@ -176,10 +178,10 @@ public class Board {
 
     bool ValidateMove(PieceType type, int speed, ivec2 from, ivec2 to) {
         // return true;
-        PieceColor notAllowedToEatColor = getPiece(from).Color; 
+        PieceColor notAllowedToEatColor = getPiece(from).Color;
         // PieceColor allowedToEatColor = (notAllowedToEatColor == PieceColor.Black) ? PieceColor.White : PieceColor.Black;
-        if(checkPiece(to)) {
-            if(notAllowedToEatColor == getPiece(to).Color) return false;
+        if (checkPiece(to)) {
+            if (notAllowedToEatColor == getPiece(to).Color) return false;
         }
         // Fuck rtti
         switch (type) {
@@ -232,5 +234,4 @@ public class Board {
         }
         activeSelectors.Clear();
     }
-
 }
