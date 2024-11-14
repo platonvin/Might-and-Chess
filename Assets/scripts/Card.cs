@@ -12,21 +12,23 @@ public enum CardAbility {
     Barricade, // force field
     Wrap, // teleport to other side
     Wind, // move all figures in selection in direction?
-    ExtraMove, // .
+    ExtraMove, // this.
     ExtendedCastling, // from anywhere i guess
     RandomEffect, // literally
     Blind,
     Dispel, // remove sleep / hypnotize / clone / barricade
     Resurrect, // graves needed?
     AntiMagic, // no cast on him i guess
-    Weakness, // resurrect better one
     Sacrifice, // resurrect better one
+    Weakness,
     Hypnotize, // pawn
-    MagicArrow, // kill pawn
+    LightingBolt, // kill pawn
     Armageddon, // damage all
-    Jumper, // 1 piece skip allowed
-
-    // one Visions per turn for easier gameplay? 
+    Flight, // 1 piece skip allowed
+    Tornado, // pulls in 3x3
+    ThunderStrike, // like magi arrow but stronger
+// Reneval - new cards?
+// one Visions per turn for easier gameplay? 
 }
 
 public enum CardCastType {
@@ -38,30 +40,6 @@ public enum CardCastType {
 
 // why c# is trying to be like c++ but worse in every aspect?
 // compiler is so bad that we have il2cpp, lol
-
-// stored in pice, changed by cast-on-piece cards
-public struct PieceProps {
-    bool isClone; // Clone
-    bool isBarricade; // Barricade
-    bool isSleeping; // sleep
-    bool isDead;// grave?
-}
-
-// stored in field (single only), changed by cast-on-field cards
-public struct FieldProps {
-    // speed == 0 is default
-    int speed; // Haste/Slow
-    int extraMoves;
-    bool healCasted; // Heal
-}
-
-[System.Serializable]
-public class CardDef {
-    CardCastType casrType;
-    CardAbility ability;
-    PieceProps pieceProps;
-    FieldProps fieldProps;
-}
 
 // also has sprite rendered
 public class Card {
@@ -148,14 +126,14 @@ public class Card {
             case CardAbility.Slow: return ApplySlowEffect(board, x, y);
             case CardAbility.Shift: return ApplyShiftEffect(board, x, y);
             case CardAbility.Clone: return ApplyCloneEffect(board, x, y, game);
-            case CardAbility.MagicArrow: return ApplyMagicArrowEffect(board, x, y);
+            case CardAbility.LightingBolt: return ApplyMagicArrowEffect(board, x, y);
             case CardAbility.AntiMagic: return ApplyAntimagicEffect(board, x, y);
-            // case CardAbility.Barricade: //     return ApplyBarricadeEffect(board, x, y);
+            case CardAbility.Barricade: return ApplyBarricadeEffect(board, x, y);
             // case CardAbility.Wrap: //     return ApplyWrapEffect(board, x, y);
             // case CardAbility.Wind: //     return ApplyWindEffect(board, game);
             case CardAbility.Blind: return ApplySleepEffect(board, x, y);
             case CardAbility.Dispel: return ApplyDispelEffect(board, x, y);
-            // case CardAbility.Resurrect: //     return ApplyResurrectEffect(board, game, x, y);
+            case CardAbility.Resurrect:  return ApplyResurrectEffect(board,  x, y);
             case CardAbility.Armageddon: return ApplyArmageddonEffect(board, game);
             default:
                 Debug.LogError("Wrong Card Ability");
@@ -184,8 +162,8 @@ public class Card {
         if (piece == null) return false;
         if (piece.antiMagicLeft > 0) return false;
 
-        piece.SpeedLevel = +1;
-        piece.Speedleft = 3;
+        piece.speedLevel = +1;
+        piece.speedleft = 3;
         return true;
     }
 
@@ -194,8 +172,8 @@ public class Card {
         if (piece == null) return false;
         if (piece.antiMagicLeft > 0) return false;
 
-        piece.SpeedLevel = -1;
-        piece.Speedleft = 3;
+        piece.speedLevel = -1;
+        piece.speedleft = 3;
         return true;
     }
 
@@ -214,13 +192,15 @@ public class Card {
         // clone lives 2 turns
         board.placeNewPiece(piece.Type, piece.Color, clonePos.x, clonePos.y);
         board.getPiece(clonePos.x, clonePos.y).isClone = true;
-        board.getPiece(clonePos.x, clonePos.y).TimeInTurnsLeft = 3;
+        board.getPiece(clonePos.x, clonePos.y).timeInTurnsLeft = 2; // so attacks ~ones and defends ~ones 
+        board.getPiece(clonePos.x, clonePos.y).updateEffectsDisplay();
         return true;
     }
 
     private bool ApplyBarricadeEffect(Board board, int x, int y) {
         ChessPiece piece = board.getPiece(x, y);
-        if (piece == null) return false;
+        // only empty allowed
+        if (piece != null) return false;
 
         board.placeNewPiece(PieceType.Barricade, PieceColor.Neutral, x, y);
         return true;
@@ -230,13 +210,6 @@ public class Card {
         ChessPiece piece = board.getPiece(x, y);
         if (piece == null) return false;
 
-        // Wrap to the opposite side of the board
-        // int newX = (x + 4) % 8; // Wrap around horizontally for a simple example
-        // int newY = (y + 4) % 8; // Wrap around vertically
-        // if (board.checkPiece(newX, newY) == false) {
-        //     board.doShiftPiece(x, y, newX, newY);
-        //     return true;
-        // }
         return false;
     }
 
@@ -258,7 +231,7 @@ public class Card {
         if (piece.antiMagicLeft > 0) return false;
 
         if (piece.Type != PieceType.Pawn) return false;
-        board.destroyPiece(x, y);
+        board.killPiece(x, y);
         return true;
     }
 
@@ -267,7 +240,7 @@ public class Card {
         if (piece == null) return false;
         if (piece.antiMagicLeft > 0) return false;
 
-        piece.SleepLeft = 3;
+        piece.sleepLeft = 3;
         return true;
     }
 
@@ -284,47 +257,82 @@ public class Card {
         if (piece == null) return false;
         if (piece.antiMagicLeft > 0) return false;
 
-        piece.SpeedLevel = 0;
-        piece.SleepLeft = 0;
+        piece.speedLevel = 0;
+        piece.sleepLeft = 0;
         // does nothing if not clone. Kills clone basically
-        piece.TimeInTurnsLeft = 0;
+        piece.timeInTurnsLeft = 0;
 
-        // piece.RemoveStatusEffect("Sleep");
-        // piece.RemoveStatusEffect("Hypnotize");
-        // piece.RemoveStatusEffect("Clone");
-        // piece.RemoveStatusEffect("Barricade");
         if (piece.Type == PieceType.Barricade) {
-            board.destroyPiece(x, y);
+            board.killPiece(x, y);
             return true;
         }
-        return false;
-    }
-
-    private bool ApplyResurrectEffect(Board board, WholeFuckingGame game, int x, int y) {
-        // Check for a grave at position x, y and resurrect a piece if one is there
-        // if (game.Graves.Contains((x, y))) {
-        //     ChessPiece resurrectedPiece = game.Graves[(x, y)]; // Example resurrection logic
-        //     board.setPiece(x, y, resurrectedPiece);
-        //     game.Graves.Remove((x, y)); // Remove grave after resurrection
-        //     return true;
-        // }
-        return false;
+        return true;
     }
 
     private bool ApplyArmageddonEffect(Board board, WholeFuckingGame game) {
-        // Example: Apply damage to all pieces on the board
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 ChessPiece piece = board.getPiece(x, y);
                 if (piece != null) {
                     if (piece.Type == PieceType.Pawn) {
                         if (piece.antiMagicLeft == 0)
-                            board.destroyPiece(x, y);
+                            board.killPiece(x, y);
                     }
                 }
             }
         }
         return true;
+    }
+
+    private bool ApplyHypnotizeEffect(Board board, int x, int y) {
+        ChessPiece piece = board.getPiece(x, y);
+        if (piece == null || piece.antiMagicLeft > 0) return false;
+
+        piece.controlledByOpponentTurnsLeft = 3;
+        return true;
+    }
+
+    private bool ApplyTornadoEffect(Board board, int x, int y) {
+        ivec2 center = new ivec2(x, y);
+
+        // Check all cells in a 3x3 area centered at (x, y)
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                // Skip the center cell itself
+                if (i == 0 && j == 0) continue;
+
+                ivec2 currentPos = new ivec2(x + i, y + j);
+                ivec2 targetPos = center;
+
+                // If there is a piece in the current position and the target position is empty
+                if (board.checkPiece(currentPos) && !board.checkPiece(targetPos)) {
+                    // Move the piece one step closer to the center
+                    board.doShiftPiece(currentPos, targetPos);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private bool ApplySacrificeEffect(Board board, int x, int y) {
+        ChessPiece toSacrifice = board.getPiece(x, y);
+        if (toSacrifice == null || toSacrifice.antiMagicLeft > 0) return false;
+
+        board.killPiece(x, y);
+
+        // replace target piece with a better one (just replace its type)
+        return false;
+        // return true;
+    }
+    private bool ApplyResurrectEffect(Board board, int x, int y) {
+        if (!board.hasGraveAt(x, y)) return false; // Assuming there's a system to track graves
+        // only empty allowed
+        ChessPiece piece = board.getPiece(x, y);
+        if (piece != null) return false;
+
+        bool resurrected = board.resurrectPieceAt(x, y); // Resurrects a piece from the graveyard
+        return resurrected;
     }
 
     // Helper function to find empty neighboring positions around a piece

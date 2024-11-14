@@ -30,7 +30,12 @@ public class DeckDef {
         defs[CardAbility.Dispel] = (3, 1);
         defs[CardAbility.Armageddon] = (3, 7);
         defs[CardAbility.AntiMagic] = (3, 5);
-        defs[CardAbility.MagicArrow] = (3, 2);
+        defs[CardAbility.LightingBolt] = (3, 2);
+        defs[CardAbility.Barricade] = (2,2);
+        defs[CardAbility.Resurrect] = (5,2);
+        defs[CardAbility.Flight] = (4,2);
+        defs[CardAbility.Sacrifice] = (4,2);
+        defs[CardAbility.Weakness] = (2,2);
         // defs[CardAbility.Barricade] = 2;
         // defs[CardAbility.Wrap] = 1;
         // defs[CardAbility.Wind] = 1;

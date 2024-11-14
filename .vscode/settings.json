@@ -56,5 +56,9 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PUPchess.sln"
+    "dotnet.defaultSolution": "PUPchess.sln",
+    "dotnetAcquisitionExtension.existingDotnetPath": [
+        {"extensionId": "msazurermtools.azurerm-vscode-tools", "path": "C:\\Program Files\\dotnet\\dotnet.exe"}
+    ],
+    "dotnetAcquisitionExtension.installTimeoutValue": 180
 }

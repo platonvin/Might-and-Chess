@@ -1,25 +1,35 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 // nullptr chess piece is literally no chess piece
 // manages chess pieces on a board and some random pieces of logic completely unrelated with physical chess board if you do not have human common sense 
 public class Board {
-    private ChessPiece[,] board;
+    private ChessPiece[,] board     = new ChessPiece[8, 8];
+    private ChessPiece[,] graveyard = new ChessPiece[8, 8];
     private Vector3 boardLeftBottomPos;
     private float singleCellScale;
     private Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
+    private Dictionary<CardAbility, GameObject> iconPrefabs;
+    private Dictionary<CardAbility, GameObject> animationPrefabs;
 
     // highlight possible moves
     public GameObject A_SelectorPrefab;
     private List<GameObject> activeSelectors = new List<GameObject>();
 
-    public Board(Vector3 boardLeftBottomPos, float singleCellScale, Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs, GameObject A_Selector) {
-        this.board = new ChessPiece[8, 8];
+
+    public Board(Vector3 boardLeftBottomPos, float singleCellScale, 
+                 Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs, 
+                 Dictionary<CardAbility, GameObject> iconPrefabs, 
+                 Dictionary<CardAbility, GameObject> animationPrefabs,
+                 GameObject A_Selector) {
         this.boardLeftBottomPos = boardLeftBottomPos;
         this.singleCellScale = singleCellScale;
         this.piecePrefabs = piecePrefabs;
+        this.iconPrefabs = iconPrefabs;
+        this.animationPrefabs = animationPrefabs;
         this.A_SelectorPrefab = A_Selector;
         InitializeBoard();
     }
@@ -30,25 +40,27 @@ public class Board {
                 ChessPiece piece = board[x, y];
                 if (piece == null) continue;
 
-                piece.SleepLeft -= 1;
+                piece.sleepLeft -= 1;
                 piece.antiMagicLeft -= 1;
-                piece.TimeInTurnsLeft -= 1;
-                piece.Speedleft -= 1;
+                piece.timeInTurnsLeft -= 1;
+                piece.speedleft -= 1;
 
-                piece.SleepLeft = Math.Clamp(piece.SleepLeft, 0, 10);
+                piece.sleepLeft = Math.Clamp(piece.sleepLeft, 0, 10);
                 piece.antiMagicLeft = Math.Clamp(piece.antiMagicLeft, 0, 10);
-                piece.TimeInTurnsLeft = Math.Clamp(piece.TimeInTurnsLeft, 0, 10);
-                piece.Speedleft = Math.Clamp(piece.Speedleft, 0, 10);
+                piece.timeInTurnsLeft = Math.Clamp(piece.timeInTurnsLeft, 0, 10);
+                piece.speedleft = Math.Clamp(piece.speedleft, 0, 10);
+                if (piece.speedleft == 0) { piece.speedLevel = 0; }
 
                 // if()
+                piece.updateEffectsDisplay();
                 // if(piece.SleepLeft == 0) {}
                 // if(piece.antiMagicLeft == 0) {}
-                if (piece.TimeInTurnsLeft == 0) {
+                if (piece.timeInTurnsLeft == 0) {
                     if (piece.isClone) {
                         destroyPiece(x, y);
                     }
                 }
-                if (piece.Speedleft == 0) { piece.SpeedLevel = 0; }
+
             }
         }
     }
@@ -87,7 +99,7 @@ public class Board {
         return _x >= 0 && _x < 8 && _y >= 0 && _y < 8;
     }
 
-    public bool DoShiftPiece(ivec2 from, ivec2 to) {
+    public bool doShiftPiece(ivec2 from, ivec2 to) {
         if (!IsPosInBoardBounds(from) || !IsPosInBoardBounds(to)) return false;
         if (from == to) return false;
 
@@ -104,7 +116,7 @@ public class Board {
     }
 
     public bool doShiftPiece(int from_x, int from_y, int to_x, int to_y) {
-        return DoShiftPiece(new ivec2(from_x, from_y), new ivec2(to_x, to_y));
+        return doShiftPiece(new ivec2(from_x, from_y), new ivec2(to_x, to_y));
     }
 
     public bool tryMovePiece(ivec2 from, ivec2 to) {
@@ -113,8 +125,9 @@ public class Board {
 
         ChessPiece piece = board[from.x, from.y];
         if (piece == null) return false;
+        if (piece.sleepLeft > 0) return false;
 
-        if (ValidateMove(piece.Type, piece.SpeedLevel, from, to)) {
+        if (ValidateMove(piece.Type, piece.speedLevel, from, to)) {
             if (board[to.x, to.y] != null) {
                 board[to.x, to.y].Destroy();
             }
@@ -149,6 +162,8 @@ public class Board {
             type,
             color,
             piecePrefabs[(type, color)],
+            iconPrefabs,
+            // animationPrefabs,
             getCellPosition(x, y)
         );
         return piece;
@@ -161,12 +176,23 @@ public class Board {
         board[xy.x, xy.y] = piece;
     }
 
-    public void destroyPiece(int x, int y) {
-        board[x, y].Destroy();
-        board[x, y] = null;
+    public void killPiece(int x, int y) {
+        if (board[x, y] != null) {
+            if(graveyard[x, y] != null) graveyard[x, y].Destroy(); // destroy previous one
+            graveyard[x, y] = board[x, y]; // Move the new piece to the graveyard
+            graveyard[x, y].setDeadVisually();
+            // graveyard[x, y]
+            board[x, y] = null; // Clear the board cell
+        }
     }
-    public void destroyPiece(ivec2 xy) {
-        destroyPiece(xy.x, xy.y);
+    public void destroyPiece(int x, int y) {
+        if (board[x, y] != null) {
+            board[x, y].Destroy();
+            board[x, y] = null; // Clear the board cell
+        }
+    }
+    public void killPiece(ivec2 xy) {
+        killPiece(xy.x, xy.y);
     }
 
     public ChessPiece getPiece(int x, int y) {
@@ -174,6 +200,21 @@ public class Board {
     }
     public ChessPiece getPiece(ivec2 xy) {
         return board[xy.x, xy.y];
+    }
+
+    public bool hasGraveAt(int x, int y) {
+        return graveyard[x, y] != null;
+    }
+
+    // Resurrect a piece from the graveyard and place it on the board at the specified coordinates
+    public bool resurrectPieceAt(int x, int y) {
+        if (!hasGraveAt(x, y) || board[x, y] != null) return false; // Check if a piece can be resurrected
+
+        board[x, y] = graveyard[x, y]; // Move the piece back to the board
+        graveyard[x, y] = null; // Clear the graveyard cell
+        board[x, y].SetVisualPosition(getCellPosition(x, y)); // Update the visual position
+        board[x, y].setAliveVisually();
+        return true;
     }
 
     bool ValidateMove(PieceType type, int speed, ivec2 from, ivec2 to) {
@@ -216,7 +257,7 @@ public class Board {
                 ivec2 targetPosition = new ivec2(x, y);
 
                 // Check if moving to this position is valid for the selected piece
-                if (ValidateMove(selectedPiece.Type, selectedPiece.SpeedLevel, selectedPosition, targetPosition)) {
+                if (ValidateMove(selectedPiece.Type, selectedPiece.speedLevel, selectedPosition, targetPosition)) {
                     // Instantiate the selector and position it at the target cell
                     Vector3 cellPosition = getCellPosition(x, y);
                     GameObject selector = GameObject.Instantiate(A_SelectorPrefab, cellPosition, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
@@ -233,5 +274,26 @@ public class Board {
             GameObject.Destroy(selector);
         }
         activeSelectors.Clear();
+    }
+
+    public void playAnimation(CardAbility ability, Vector3 position) {
+        // Check if an animation prefab exists for the given ability
+        if (animationPrefabs.TryGetValue(ability, out GameObject animationPrefab)) {
+            Debug.Log("playing anim for" + ability);
+            // Instantiate the animation at the specified position
+            GameObject animationInstance = GameObject.Instantiate(animationPrefab, position, Quaternion.Euler(90,0,0));
+
+            // Play the animation (assuming it has an Animator or similar component)
+            Animator animator = animationInstance.GetComponent<Animator>();
+            // if (animator != null) {
+                animator.Play(0); // Play the default animation clip
+            // }
+
+            // destroy the animation object after it finishes playing
+            float animationDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+            GameObject.Destroy(animationInstance, animationDuration);
+        } else {
+            Debug.LogWarning($"No animation prefab found for ability: {ability}");
+        }
     }
 }
