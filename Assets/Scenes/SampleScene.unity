@@ -278,38 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 0
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &338622887
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5aa5e60812ae14da64caef86ca9188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  N_Barricade: {fileID: 0}
+  N_Barricade: {fileID: 64727477891618971, guid: ae99d41ad620ea04d98816df9d15b690, type: 3}
   B_Bishop: {fileID: 3246592016347132666, guid: 1ed553eeb6ae8b94ba821d2d6021447a, type: 3}
   B_King: {fileID: 2941782556426318788, guid: 874c506d77b6d3c479070d68ae50e55f, type: 3}
   B_Knight: {fileID: 3719594468856984692, guid: c9ee6afb8e1f26c4c93e299bee853d7b, type: 3}
@@ -463,7 +431,8 @@ MonoBehaviour:
   I_AntiMagic: {fileID: 7996551696030114724, guid: 33a33e4b60eab8a4fb5a1070fc847ed4, type: 3}
   I_Blind: {fileID: 7996551696030114724, guid: 6ba2588110ff0b94d9931afd32d49507, type: 3}
   I_Hypnotize: {fileID: 7996551696030114724, guid: 6567d30a501b7cc42894ff3127add31f, type: 3}
-  AA_Armagedon: {fileID: 0}
+  I_Weakness: {fileID: 7996551696030114724, guid: 10e7afaca475c894e9906d48d58e9145, type: 3}
+  AA_Armagedon: {fileID: 7454355440058253780, guid: 6bd0fc7eed0df4b4387f93b2bda03a7e, type: 3}
   AA_Dispel: {fileID: 6344766770915198916, guid: 3e1d4456710d68d49a099ddf29cbcc8f, type: 3}
   AA_Haste: {fileID: 1316805777515054379, guid: c6cb6c173ac591b44af597257ce22773, type: 3}
   AA_Slow: {fileID: 8608099753233815743, guid: b26058c0ad97fb24fa4cd24717ecaeea, type: 3}
@@ -472,6 +441,9 @@ MonoBehaviour:
   AA_AntiMagic: {fileID: 4763694275595807060, guid: 56e30b7b6ed9d9e4295771f509d1d18f, type: 3}
   AA_Resurrect: {fileID: 7875211042986776233, guid: 424b61e568892d74d9c7c3a1959d9995, type: 3}
   AA_Hypnotize: {fileID: 8868421823350070387, guid: cfe49f18d8bd18c4a93f70f551dea401, type: 3}
+  AA_Berserk: {fileID: 5949514443063464868, guid: 159556729ce285249b9a060e440a8b92, type: 3}
+  AA_Weakness: {fileID: 332790132550682130, guid: 98430cf1900cedc4e8120f90df392d67, type: 3}
+  AA_Flight: {fileID: 6434515345292553997, guid: c9ab1c80af009164193d26c42a120fd7, type: 3}
   CardGraveyardObject: {fileID: 338622887}
   boardLeftBottomPos: {x: -36.68, y: 0, z: -36.68}
   singleCellScale: 9.2

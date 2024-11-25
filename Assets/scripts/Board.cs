@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
 // nullptr chess piece is literally no chess piece
 // manages chess pieces on a board and some random pieces of logic completely unrelated with physical chess board if you do not have human common sense 
 public class Board {
-    private ChessPiece[,] board     = new ChessPiece[8, 8];
+    private ChessPiece[,] board = new ChessPiece[8, 8];
     private ChessPiece[,] graveyard = new ChessPiece[8, 8];
     private Vector3 boardLeftBottomPos;
     private float singleCellScale;
@@ -20,9 +19,9 @@ public class Board {
     private List<GameObject> activeSelectors = new List<GameObject>();
 
 
-    public Board(Vector3 boardLeftBottomPos, float singleCellScale, 
-                 Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs, 
-                 Dictionary<CardAbility, GameObject> iconPrefabs, 
+    public Board(Vector3 boardLeftBottomPos, float singleCellScale,
+                 Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs,
+                 Dictionary<CardAbility, GameObject> iconPrefabs,
                  Dictionary<CardAbility, GameObject> animationPrefabs,
                  GameObject A_Selector) {
         this.boardLeftBottomPos = boardLeftBottomPos;
@@ -44,11 +43,18 @@ public class Board {
                 piece.antiMagicLeft -= 1;
                 piece.timeInTurnsLeft -= 1;
                 piece.speedleft -= 1;
+                piece.weaknessLeft -= 1;
 
                 piece.sleepLeft = Math.Clamp(piece.sleepLeft, 0, 10);
                 piece.antiMagicLeft = Math.Clamp(piece.antiMagicLeft, 0, 10);
                 piece.timeInTurnsLeft = Math.Clamp(piece.timeInTurnsLeft, 0, 10);
-                piece.speedleft = Math.Clamp(piece.speedleft, 0, 10);
+                if ((!piece.hasMovedAtAll) && (piece.type == PieceType.Pawn)) {
+                    piece.speedleft = 1;
+                    piece.speedLevel = +1;
+                } else {
+                    piece.speedleft = Math.Clamp(piece.speedleft, 0, 10);
+                }
+                piece.weaknessLeft = Math.Clamp(piece.weaknessLeft, 0, 10);
                 if (piece.speedleft == 0) { piece.speedLevel = 0; }
 
                 // if()
@@ -61,6 +67,16 @@ public class Board {
                     }
                 }
 
+            }
+        }
+    }
+
+    public void visualUpdate() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                ChessPiece piece = board[x, y];
+                if (piece == null) continue;
+                piece.updateTransform();
             }
         }
     }
@@ -111,12 +127,23 @@ public class Board {
 
         board[to.x, to.y] = piece;
         board[from.x, from.y] = null;
-        piece.SetVisualPosition(getCellPosition(to.x, to.y));
+        piece.setTargetPosition(getCellPosition(to.x, to.y));
         return true;
     }
 
     public bool doShiftPiece(int from_x, int from_y, int to_x, int to_y) {
         return doShiftPiece(new ivec2(from_x, from_y), new ivec2(to_x, to_y));
+    }
+
+    public void forAiApplyMove(ivec2 from, ivec2 to, out ChessPiece capturedPiece) {
+        capturedPiece = board[to.x, to.y];
+        board[to.x, to.y] = board[from.x, from.y];
+        board[from.x, from.y] = null;
+    }
+
+    public void forAiUndoMove(ivec2 from, ivec2 to, ChessPiece capturedPiece) {
+        board[from.x, from.y] = board[to.x, to.y];
+        board[to.x, to.y] = capturedPiece;
     }
 
     public bool tryMovePiece(ivec2 from, ivec2 to) {
@@ -127,17 +154,45 @@ public class Board {
         if (piece == null) return false;
         if (piece.sleepLeft > 0) return false;
 
-        if (ValidateMove(piece.Type, piece.speedLevel, from, to)) {
-            if (board[to.x, to.y] != null) {
-                board[to.x, to.y].Destroy();
-            }
+        if (checkPiece(to)) {
+            //cannot step on barrier / barricade
+            if (board[to.x, to.y].type == PieceType.Barricade) return false;
+            //cannot attack if weakness
+            if (piece.weaknessLeft > 0) return false;
+        }
 
-            board[to.x, to.y] = piece;
+        if (checkMove(piece.type, piece.speedLevel, from, to)) {
+            tryKillPiece(to);
+
             board[from.x, from.y] = null;
-            piece.SetVisualPosition(getCellPosition(to.x, to.y));
+            board[to.x, to.y] = piece;
+            piece.setTargetPosition(getCellPosition(to.x, to.y));
+            piece.hasMovedAtAll = true;
             return true;
         }
         return false;
+    }
+
+    public bool validateMovePiece(ivec2 from, ivec2 to) {
+        if (!IsPosInBoardBounds(from) || !IsPosInBoardBounds(to)) return false;
+        if (from == to) return false;
+
+        ChessPiece piece = board[from.x, from.y];
+        if (piece == null) return false;
+        if (piece.sleepLeft > 0) return false;
+
+        if (checkPiece(to)) {
+            //cannot step on barrier / barricade
+            if (board[to.x, to.y].type == PieceType.Barricade) return false;
+            //cannot attack if weakness
+            if (piece.weaknessLeft > 0) return false;
+        }
+
+        if (!checkMove(piece.type, piece.speedLevel, from, to)) {
+            return false;
+        }
+
+        return true;
     }
 
     public bool checkPiece(int x, int y) {
@@ -151,6 +206,10 @@ public class Board {
         float x_offset_in_cells = x - 3.5f;
         float y_offset_in_cells = y - 3.5f;
         return new Vector3(x_offset_in_cells * singleCellScale, 2.5f, y_offset_in_cells * singleCellScale);
+    }
+
+    public Vector3 getCellPosition(ivec2 xy) {
+        return getCellPosition(xy.x, xy.y);
     }
 
     public void placeNewPiece(PieceType type, PieceColor color, int x, int y) {
@@ -176,9 +235,9 @@ public class Board {
         board[xy.x, xy.y] = piece;
     }
 
-    public void killPiece(int x, int y) {
+    public void tryKillPiece(int x, int y) {
         if (board[x, y] != null) {
-            if(graveyard[x, y] != null) graveyard[x, y].Destroy(); // destroy previous one
+            if (graveyard[x, y] != null) graveyard[x, y].destroy(); // destroy previous one
             graveyard[x, y] = board[x, y]; // Move the new piece to the graveyard
             graveyard[x, y].setDeadVisually();
             // graveyard[x, y]
@@ -187,12 +246,12 @@ public class Board {
     }
     public void destroyPiece(int x, int y) {
         if (board[x, y] != null) {
-            board[x, y].Destroy();
+            board[x, y].destroy();
             board[x, y] = null; // Clear the board cell
         }
     }
-    public void killPiece(ivec2 xy) {
-        killPiece(xy.x, xy.y);
+    public void tryKillPiece(ivec2 xy) {
+        tryKillPiece(xy.x, xy.y);
     }
 
     public ChessPiece getPiece(int x, int y) {
@@ -212,22 +271,33 @@ public class Board {
 
         board[x, y] = graveyard[x, y]; // Move the piece back to the board
         graveyard[x, y] = null; // Clear the graveyard cell
-        board[x, y].SetVisualPosition(getCellPosition(x, y)); // Update the visual position
+        board[x, y].setTargetPosition(getCellPosition(x, y)); // Update the visual position
         board[x, y].setAliveVisually();
         return true;
     }
 
-    bool ValidateMove(PieceType type, int speed, ivec2 from, ivec2 to) {
+    bool checkMove(PieceType type, int speed, ivec2 from, ivec2 to) {
         // return true;
-        PieceColor notAllowedToEatColor = getPiece(from).Color;
+        PieceColor notAllowedToEatColor = getPiece(from).color;
         // PieceColor allowedToEatColor = (notAllowedToEatColor == PieceColor.Black) ? PieceColor.White : PieceColor.Black;
+        bool isAttacking = false;
         if (checkPiece(to)) {
-            if (notAllowedToEatColor == getPiece(to).Color) return false;
+            isAttacking = true;
+            if (notAllowedToEatColor == getPiece(to).color) return false;
         }
         // Fuck rtti
         switch (type) {
-            case PieceType.Pawn:
-                return ChessPieceMovement.PawnMovement.CheckMove(this, from, to, speed);
+            case PieceType.Pawn: {
+                    if (isAttacking) {
+                        if (getPiece(from).color == PieceColor.White) return ChessPieceMovement.PawnWhiteAttack.CheckMove(this, from, to, speed);
+                        else if (getPiece(from).color == PieceColor.Black) return ChessPieceMovement.PawnBlackAttack.CheckMove(this, from, to, speed);
+                        else return false;
+                    } else {
+                        if (getPiece(from).color == PieceColor.White) return ChessPieceMovement.PawnWhiteMovement.CheckMove(this, from, to, speed);
+                        else if (getPiece(from).color == PieceColor.Black) return ChessPieceMovement.PawnBlackMovement.CheckMove(this, from, to, speed);
+                        else return false;
+                    }
+                }
             case PieceType.King:
                 return ChessPieceMovement.KingMovement.CheckMove(this, from, to, speed);
             case PieceType.Bishop:
@@ -257,7 +327,7 @@ public class Board {
                 ivec2 targetPosition = new ivec2(x, y);
 
                 // Check if moving to this position is valid for the selected piece
-                if (ValidateMove(selectedPiece.Type, selectedPiece.speedLevel, selectedPosition, targetPosition)) {
+                if (validateMovePiece(selectedPosition, targetPosition)) {
                     // Instantiate the selector and position it at the target cell
                     Vector3 cellPosition = getCellPosition(x, y);
                     GameObject selector = GameObject.Instantiate(A_SelectorPrefab, cellPosition, Quaternion.LookRotation(new Vector3(0f, -1f, 0f)));
@@ -281,12 +351,16 @@ public class Board {
         if (animationPrefabs.TryGetValue(ability, out GameObject animationPrefab)) {
             Debug.Log("playing anim for" + ability);
             // Instantiate the animation at the specified position
-            GameObject animationInstance = GameObject.Instantiate(animationPrefab, position, Quaternion.Euler(90,0,0));
+
+            if (ability == CardAbility.Armageddon) {
+                position = Vector3.zero;
+            }
+            GameObject animationInstance = GameObject.Instantiate(animationPrefab, position, Quaternion.Euler(90, 0, 0));
 
             // Play the animation (assuming it has an Animator or similar component)
             Animator animator = animationInstance.GetComponent<Animator>();
             // if (animator != null) {
-                animator.Play(0); // Play the default animation clip
+            animator.Play(0); // Play the default animation clip
             // }
 
             // destroy the animation object after it finishes playing

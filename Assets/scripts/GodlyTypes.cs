@@ -15,23 +15,11 @@ public struct ivec2 {
     // override object.Equals
     public override bool Equals(object obj) {
         throw new System.NotImplementedException();
-        if (obj == null || GetType() != obj.GetType()) {
-            return false;
-        }
-
-        return this.GetType() == obj.GetType();
     }
 
-    // override object.GetHashCode
     public override int GetHashCode() {
         throw new System.NotImplementedException();
-        return base.GetHashCode();
     }
-
-    // public static ivec2 clamp(ivec2 value, ivec2 low, ivec2 high) => new ivec2(
-    //     Math.Clamp(value.x, low.x, high.x),
-    //     Math.Clamp(value.y, low.y, high.y)
-    // );
 
     public ivec2 clamp(ivec2 low, ivec2 high) => new ivec2(
         Math.Clamp(x, low.x, high.x),

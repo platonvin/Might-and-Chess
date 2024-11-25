@@ -1,9 +1,4 @@
-
 using System;
-using System.Diagnostics.Tracing;
-using System.IO;
-using Unity.VisualScripting;
-using UnityEngine;
 
 public enum WeirdRotation {
     NoRotation = 0,
@@ -12,28 +7,29 @@ public enum WeirdRotation {
     Rotate270 = 270
 }
 
-// so much easier that ivec2 lol
-
 public class MoveConstraint {
     public ivec2[] shifts;          // Array of direction vectors for movement
     public bool isRepeated;         // Can the movement be repeated?
+    public bool repeatInsteadOfSpeed;         // Can the movement be repeated?
     public WeirdRotation[] rotations;    // Possible rotations for the movement pattern
+    public bool doesHasteWork; // for pawns attack basically
 
-    public MoveConstraint(ivec2[] shifts, bool isRepeated, WeirdRotation[] rotations) {
+    public MoveConstraint(ivec2[] shifts, bool isRepeated, WeirdRotation[] rotations, bool doesHasteWork = true, bool repeatInsteadOfSpeed = false) {
         this.shifts = shifts;
         this.isRepeated = isRepeated;
         this.rotations = rotations;
+        this.repeatInsteadOfSpeed = repeatInsteadOfSpeed;
+        this.doesHasteWork = doesHasteWork;
     }
 
     public bool CheckMove(Board board, ivec2 startPos, ivec2 endPos, int speed = 0) {
         bool valid = CheckMovePattern(board, startPos, endPos, speed);
-
-
         return valid;
     }
+
     // Check if a move from startPos to endPos is valid based on the constraint
     public bool CheckMovePattern(Board board, ivec2 startPos, ivec2 endPos, int speed) {
-        ivec2 moveDifference = new ivec2(endPos.x - startPos.x, endPos.y - startPos.y);
+        ivec2 moveDifference = endPos - startPos;
         if (moveDifference == new ivec2(0, 0)) return false; // No movement
 
         foreach (var originShift in shifts) {
@@ -48,10 +44,18 @@ public class MoveConstraint {
 
                 // Adjust speed only for non-repeated moves
                 ivec2 currentShift = rotatedShift;
+
+                // e.g. pawn attack 
+                if (!doesHasteWork) speed = 0;
+
                 if (!isRepeated) {
-                    currentShift += shiftDirection * speed;
-                    currentShift.clamp(new ivec2(0, 0), new ivec2(10, 10));
-                } else {
+                    if (repeatInsteadOfSpeed) {
+                        // basically speed will be achived via iterative approach
+                    } else {
+                        currentShift += shiftDirection * speed;
+                        currentShift.clamp(new ivec2(0, 0), new ivec2(10, 10));
+                    }
+                } else { // is repeated
                     // Clamp speed for repeated moves as intended
                     speed = Math.Clamp(speed, -1, 0);
                 }
@@ -74,7 +78,20 @@ public class MoveConstraint {
                         }
                     } else if (!isRepeated && validSteps) {
                         // Non-repeating move patterns (e.g., King, Knight)
+                        // this also allows pawn to move both 1 and 2
                         if (moveDifference == currentShift) return true;
+
+                        // basically pawn only
+                        if (repeatInsteadOfSpeed) {
+                            // basically speed will be achived via iterative approach
+                            int distance = Math.Max(Math.Abs(moveDifference.x), Math.Abs(moveDifference.y));
+                            if (distance > 0 && CheckPathClear(board, startPos, endPos, currentShift)) {
+                                if (stepsX == stepsY && stepsY == (speed + 1)) return true;
+                                if (currentShift.x == 0 && stepsY > 0 && stepsY == (speed + 1)) return true;
+                                if (currentShift.y == 0 && stepsX > 0 && stepsX == (speed + 1)) return true;
+                            }
+                        } else {
+                        }
                     }
                 }
             }
@@ -85,18 +102,18 @@ public class MoveConstraint {
 
     public bool CheckPathClear(Board board, ivec2 startPos, ivec2 endPos, ivec2 step) {
         ivec2 currentPos = startPos + step;
+        int maxObsitclesOnPath = 1;
+        if (board.getPiece(startPos).flightLeft > 0) maxObsitclesOnPath = 2;
+        int obsticlesMet = 0;
 
         while (currentPos != endPos) {
             // Check if within bounds
-            if (!board.IsPosInBoardBounds(currentPos)) {
-                return false; // Out of bounds
-            }
-
+            if (!board.IsPosInBoardBounds(currentPos)) { return false; } // Out of bounds
             // Check for an obstacle
             if (board.checkPiece(currentPos)) {
-                return false; // Path is blocked
+                obsticlesMet++;
+                if (obsticlesMet >= maxObsitclesOnPath) return false; // Path is blocked enough times
             }
-
             // Move to the next position
             currentPos += step;
         }
@@ -105,18 +122,37 @@ public class MoveConstraint {
         return true;
     }
 }
-// public static MoveConstraint QueenMovement = new MoveConstraint(
-//     new ivec2[] {  new ivec2(1, 1), new ivec2(1, 0), new ivec2(0, 1) },  // Queen moves horizontally, vertically, and diagonally
-//     true,                                                            // Can repeat the move
-//     new WeirdRotation[] { WeirdRotation.NoRotation, WeirdRotation.Rotate90, WeirdRotation.Rotate180, WeirdRotation.Rotate270 } // All 4 directions (horizontal, vertical, diagonal)
-// );
-// POSITIVE VALUES ONLY
+
 public class ChessPieceMovement {
     // Pawn: Moves 1 square up (or down with 180-degree rotation), cannot repeat the move
-    public static MoveConstraint PawnMovement = new MoveConstraint(
+    public static MoveConstraint PawnWhiteMovement = new MoveConstraint(
         new ivec2[] { new ivec2(0, 1) },    // Pawn moves 1 square up (no horizontal movement)
         false,                             // Can’t repeat the move
-        new WeirdRotation[] { WeirdRotation.NoRotation, WeirdRotation.Rotate180 } // Can move up and down
+        new WeirdRotation[] { WeirdRotation.NoRotation }, // Can move up and down
+        true,// haste works on movement
+        true // cause they do not jump
+    );
+    // Pawn is little weird and has diagonal attack
+    public static MoveConstraint PawnWhiteAttack = new MoveConstraint(
+        new ivec2[] { new ivec2(+1, 1), new ivec2(-1, 1) },    // Pawn moves 1 square up and +1/-1 to the side
+        false,                              // Can’t repeat the move
+        new WeirdRotation[] { WeirdRotation.NoRotation }, // Can move up and down
+        false,// haste doesnt work on attack
+        true // cause they do not jump
+    );
+    public static MoveConstraint PawnBlackMovement = new MoveConstraint(
+        new ivec2[] { new ivec2(0, -1) },    // Pawn moves 1 square up (no horizontal movement)
+        false,                             // Can’t repeat the move
+        new WeirdRotation[] { WeirdRotation.NoRotation }, // Can move up and down
+        true,// haste works on movement
+        true // cause they do not jump
+    );
+    public static MoveConstraint PawnBlackAttack = new MoveConstraint(
+        new ivec2[] { new ivec2(+1, -1), new ivec2(-1, -1) },    // Pawn moves 1 square up and +1/-1 to the side
+        false,                              // Can’t repeat the move
+        new WeirdRotation[] { WeirdRotation.NoRotation }, // Can move up and down
+        false,// haste doesnt work on attack
+        true // cause they do not jump
     );
 
     // King: Moves 1 square in all 4 directions (horizontal, vertical, and diagonals), cannot repeat the move

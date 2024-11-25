@@ -27,7 +27,9 @@ public enum CardAbility {
     Flight, // 1 piece skip allowed
     Tornado, // pulls in 3x3
     ThunderStrike, // like magi arrow but stronger
+    Berserk,
 // Reneval - new cards?
+
 // one Visions per turn for easier gameplay? 
 }
 
@@ -129,8 +131,10 @@ public class Card {
             case CardAbility.LightingBolt: return ApplyMagicArrowEffect(board, x, y);
             case CardAbility.AntiMagic: return ApplyAntimagicEffect(board, x, y);
             case CardAbility.Barricade: return ApplyBarricadeEffect(board, x, y);
+            case CardAbility.Weakness: return ApplyWeaknessEffect(board, x, y);
             // case CardAbility.Wrap: //     return ApplyWrapEffect(board, x, y);
             // case CardAbility.Wind: //     return ApplyWindEffect(board, game);
+            case CardAbility.Flight: return ApplyFlightEffect(board, x, y);
             case CardAbility.Blind: return ApplySleepEffect(board, x, y);
             case CardAbility.Dispel: return ApplyDispelEffect(board, x, y);
             case CardAbility.Resurrect:  return ApplyResurrectEffect(board,  x, y);
@@ -190,8 +194,13 @@ public class Card {
         ivec2 clonePos = emptyNeighbors[rnd_id];
         Debug.Log(clonePos.x + "" + clonePos.y);
         // clone lives 2 turns
-        board.placeNewPiece(piece.Type, piece.Color, clonePos.x, clonePos.y);
+        board.placeNewPiece(piece.type, piece.color, clonePos.x, clonePos.y);
+        // setting up clone piece itself
+
+        // set initial pos to parent of clone
+        board.getPiece(clonePos.x, clonePos.y).setVisualPosition(board.getCellPosition(x,y));
         board.getPiece(clonePos.x, clonePos.y).isClone = true;
+        board.getPiece(clonePos.x, clonePos.y).hasMovedAtAll = true;
         board.getPiece(clonePos.x, clonePos.y).timeInTurnsLeft = 2; // so attacks ~ones and defends ~ones 
         board.getPiece(clonePos.x, clonePos.y).updateEffectsDisplay();
         return true;
@@ -230,8 +239,8 @@ public class Card {
         if (piece == null) return false;
         if (piece.antiMagicLeft > 0) return false;
 
-        if (piece.Type != PieceType.Pawn) return false;
-        board.killPiece(x, y);
+        if (piece.type != PieceType.Pawn) return false;
+        board.tryKillPiece(x, y);
         return true;
     }
 
@@ -244,11 +253,30 @@ public class Card {
         return true;
     }
 
+    private bool ApplyFlightEffect(Board board, int x, int y) {
+        ChessPiece piece = board.getPiece(x, y);
+        if (piece == null) return false;
+        if (piece.antiMagicLeft > 0) return false;
+
+        piece.flightLeft = 3;
+        return true;
+    }
+
     private bool ApplyAntimagicEffect(Board board, int x, int y) {
         ChessPiece piece = board.getPiece(x, y);
         if (piece == null) return false;
+        if (piece.antiMagicLeft > 0) return false; // lol am prevents am
 
         piece.antiMagicLeft = 3;
+        return true;
+    }
+
+    private bool ApplyWeaknessEffect(Board board, int x, int y) {
+        ChessPiece piece = board.getPiece(x, y);
+        if (piece == null) return false;
+        if (piece.antiMagicLeft > 0) return false;
+
+        piece.weaknessLeft = 3;
         return true;
     }
 
@@ -261,9 +289,13 @@ public class Card {
         piece.sleepLeft = 0;
         // does nothing if not clone. Kills clone basically
         piece.timeInTurnsLeft = 0;
+        piece.weaknessLeft = 0;
+        piece.flightLeft = 0;
+        piece.controlledByOpponentTurnsLeft = 0;
 
-        if (piece.Type == PieceType.Barricade) {
-            board.killPiece(x, y);
+        // also kills barriers
+        if (piece.type == PieceType.Barricade) {
+            board.tryKillPiece(x, y);
             return true;
         }
         return true;
@@ -274,9 +306,9 @@ public class Card {
             for (int y = 0; y < 8; y++) {
                 ChessPiece piece = board.getPiece(x, y);
                 if (piece != null) {
-                    if (piece.Type == PieceType.Pawn) {
+                    if (piece.type == PieceType.Pawn) {
                         if (piece.antiMagicLeft == 0)
-                            board.killPiece(x, y);
+                            board.tryKillPiece(x, y);
                     }
                 }
             }
@@ -319,7 +351,7 @@ public class Card {
         ChessPiece toSacrifice = board.getPiece(x, y);
         if (toSacrifice == null || toSacrifice.antiMagicLeft > 0) return false;
 
-        board.killPiece(x, y);
+        board.tryKillPiece(x, y);
 
         // replace target piece with a better one (just replace its type)
         return false;

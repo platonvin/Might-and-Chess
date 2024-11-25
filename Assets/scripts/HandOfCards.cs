@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HandOfCards {
@@ -108,7 +106,6 @@ public class HandOfCards {
             // Slight vertical offset for card stacking effect
             cardPosition.y = 2.5f + i * 0.1f;
 
-            // Update card's position smoothly
             cards[i].SetPosition(cardPosition);
         }
     }
@@ -137,7 +134,7 @@ public class HandOfCards {
         }
 
         hoveredCardIndex = -1;
-        return hoveredCardIndex; // Return -1 if no card was hit
+        return hoveredCardIndex; // -1 if no card was hit
     }
 
 }

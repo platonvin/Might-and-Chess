@@ -73,3 +73,7 @@ crashlytics-build.properties
 !*.dll
 !*.obj
 /TEMP.md
+
+*.bmp
+*.bmp.meta
+/.vscode

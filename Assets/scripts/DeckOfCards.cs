@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class DeckDef {
     public Dictionary<CardAbility, (int, int)> defs = new Dictionary<CardAbility, (int, int)>();
-
     private static DeckDef _instance;
 
-    // Property to access the singleton instance
+    // singleton
     public static DeckDef Instance {
         get {
             if (_instance == null) {
@@ -31,11 +30,15 @@ public class DeckDef {
         defs[CardAbility.Armageddon] = (3, 7);
         defs[CardAbility.AntiMagic] = (3, 5);
         defs[CardAbility.LightingBolt] = (3, 2);
-        defs[CardAbility.Barricade] = (2,2);
-        defs[CardAbility.Resurrect] = (5,2);
-        defs[CardAbility.Flight] = (4,2);
-        defs[CardAbility.Sacrifice] = (4,2);
-        defs[CardAbility.Weakness] = (2,2);
+        defs[CardAbility.Barricade] = (2, 2);
+        defs[CardAbility.Resurrect] = (5, 2);
+        defs[CardAbility.Flight] = (4, 2);
+        defs[CardAbility.Sacrifice] = (4, 2);
+        defs[CardAbility.Weakness] = (2, 2);
+
+        // defs[CardAbility.Hypnotize] = (2,2);
+        // defs[CardAbility.ExtraMove] = (2,2);
+        // defs[CardAbility.Berserk] = (2,2);
         // defs[CardAbility.Barricade] = 2;
         // defs[CardAbility.Wrap] = 1;
         // defs[CardAbility.Wind] = 1;

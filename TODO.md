@@ -1,26 +1,27 @@
 self selector different anim 
 arrow on where dragging from
 
-correct pawn movement / attack / special
+implement::
+sacrifice
 
 animations for:
-armag
-arrow
-etc
-
+clone (color)
+sacrifice
 
 drawing card anim
 
 text box with explanation
 
-cast onBoard cards (board state)
-board effect with display
-
-animations for visual pos for pieces
 tutorial
 
-//kinda? they just rotate lol
-<!-- graves renderering -->
-pawn first move haste bonus (aka +1)
+if not dragged reset target
 
-interpolate pieces
+fix hand hover
+
+king death = end of the game
+ai::
+    hand
+    more than 1 step
+    difficulty levels
+<!-- kinda? they just rotate lol -->
+<!-- graves renderering -->

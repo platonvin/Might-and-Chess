@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 enum Dragged {
     None,
@@ -18,34 +15,34 @@ enum Dragged {
 public class WholeFuckingGame : MonoBehaviour {
     public GameObject N_Barricade;
     // blacks
-    public GameObject B_Bishop;
-    public GameObject B_King;
-    public GameObject B_Knight;
-    public GameObject B_Pawn;
-    public GameObject B_Queen;
-    public GameObject B_Rook;
+    public GameObject B_Bishop,
+                      B_King,
+                      B_Knight,
+                      B_Pawn,
+                      B_Queen,
+                      B_Rook;
     // whites
-    public GameObject W_Bishop;
-    public GameObject W_King;
-    public GameObject W_Knight;
-    public GameObject W_Pawn;
-    public GameObject W_Queen;
-    public GameObject W_Rook;
+    public GameObject W_Bishop,
+                      W_King,
+                      W_Knight,
+                      W_Pawn,
+                      W_Queen,
+                      W_Rook;
     //cards
-    public GameObject C_AntiMagic;
-    public GameObject C_Armageddon;
-    public GameObject C_Barrier;
-    public GameObject C_Blind;
-    public GameObject C_Clone;
-    public GameObject C_Dispel;
-    public GameObject C_Flight;
-    public GameObject C_Haste;
-    public GameObject C_LightingBolt;
-    public GameObject C_Push;
-    public GameObject C_Resurrect;
-    public GameObject C_Sacrifice;
-    public GameObject C_Slow;
-    public GameObject C_Weakness;
+    public GameObject C_AntiMagic,
+                      C_Armageddon,
+                      C_Barrier,
+                      C_Blind,
+                      C_Clone,
+                      C_Dispel,
+                      C_Flight,
+                      C_Haste,
+                      C_LightingBolt,
+                      C_Push,
+                      C_Resurrect,
+                      C_Sacrifice,
+                      C_Slow,
+                      C_Weakness;
     //possible moves
     public GameObject A_Selector;
     //mana
@@ -53,28 +50,32 @@ public class WholeFuckingGame : MonoBehaviour {
     //text
     public GameObject T_CardDescription;
     //icons
-    public GameObject I_Haste;
-    public GameObject I_Slow;
-    public GameObject I_Clone;
-    public GameObject I_AntiMagic;
-    public GameObject I_Blind;
-    public GameObject I_Hypnotize;
+    public GameObject I_Haste,
+                      I_Slow,
+                      I_Clone,
+                      I_AntiMagic,
+                      I_Blind,
+                      I_Hypnotize,
+                      I_Weakness;
 
     // on cast animations
-    public GameObject AA_Armagedon;
-    public GameObject AA_Dispel;
-    public GameObject AA_Haste;
-    public GameObject AA_Slow;
-    public GameObject AA_LightingBolt;
-    public GameObject AA_Blind;
-    public GameObject AA_AntiMagic;
-    public GameObject AA_Resurrect;
-    public GameObject AA_Hypnotize;
+    public GameObject AA_Armagedon,
+                      AA_Dispel,
+                      AA_Haste,
+                      AA_Slow,
+                      AA_LightingBolt,
+                      AA_Blind,
+                      AA_AntiMagic,
+                      AA_Resurrect,
+                      AA_Hypnotize,
+                      AA_Berserk,
+                      AA_Weakness,
+                      AA_Flight;
 
     public GameObject CardGraveyardObject;
 
     Dictionary<(PieceType, PieceColor), GameObject> piecePrefabs;
-    Dictionary<CardAbility, GameObject> animationPrefabs; 
+    Dictionary<CardAbility, GameObject> animationPrefabs;
     Dictionary<CardAbility, GameObject> cardPrefabs;
     Dictionary<CardAbility, GameObject> iconPrefabs;
     // C# made me love C++
@@ -109,24 +110,25 @@ public class WholeFuckingGame : MonoBehaviour {
     const int MAX_MANA = 8;
     int whiteManaLeft = MAX_MANA;
     int blackManaLeft = MAX_MANA;
-    private Transform manaContainer;
-    private List<GameObject> manaIcons = new();
+    Transform manaContainer;
+    List<GameObject> manaIcons = new();
     [SerializeField]
     public Vector3 manaContainerPos;
 
-    private IInputHandler inputHandler;
+    IInputHandler inputHandler;
 
-    private void Awake() {
-        // Use the appropriate input handler based on the platform
-#if UNITY_EDITOR || UNITY_STANDALONE
-        inputHandler = new MouseInputHandler();
-#elif UNITY_IOS || UNITY_ANDROID
+    ChessAS bot; //
+
+    void Awake() {
+        // input handler based on the platform
+        #if UNITY_EDITOR || UNITY_STANDALONE
+            inputHandler = new MouseInputHandler();
+        #elif UNITY_IOS || UNITY_ANDROID
             inputHandler = new TouchInputHandler();
-#endif
+        #endif
 
-        // Initialize the dictionary with the appropriate prefab for each piece type and color
-        piecePrefabs = new Dictionary<(PieceType, PieceColor), GameObject>
-        {
+        // init prefab dictionaries
+        piecePrefabs = new Dictionary<(PieceType, PieceColor), GameObject> {
             { (PieceType.Bishop, PieceColor.Black), B_Bishop },
             { (PieceType.King, PieceColor.Black), B_King },
             { (PieceType.Knight, PieceColor.Black), B_Knight },
@@ -144,19 +146,16 @@ public class WholeFuckingGame : MonoBehaviour {
             { (PieceType.Barricade, PieceColor.Neutral), N_Barricade }
         };
 
-        cardPrefabs = new Dictionary<CardAbility, GameObject>
-        {
+        cardPrefabs = new Dictionary<CardAbility, GameObject> {
             {CardAbility.Shift, C_Push},
             {CardAbility.Haste, C_Haste},
             {CardAbility.Slow, C_Slow},
-
             {CardAbility.Clone, C_Clone},
             {CardAbility.Blind, C_Blind},
             {CardAbility.Dispel, C_Dispel},
             {CardAbility.Armageddon, C_Armageddon},
             {CardAbility.AntiMagic, C_AntiMagic},
             {CardAbility.LightingBolt, C_LightingBolt},
-
             {CardAbility.Barricade, C_Barrier},
             {CardAbility.Resurrect, C_Resurrect},
             {CardAbility.Flight, C_Flight},
@@ -170,18 +169,17 @@ public class WholeFuckingGame : MonoBehaviour {
             {CardAbility.Wind, C_Slow},
         };
 
-        iconPrefabs = new Dictionary<CardAbility, GameObject>
-        {
+        iconPrefabs = new Dictionary<CardAbility, GameObject> {
             {CardAbility.Haste, I_Haste},
             {CardAbility.Slow, I_Slow},
             {CardAbility.Clone, I_Clone},
             {CardAbility.Blind, I_Blind},
             {CardAbility.AntiMagic, I_AntiMagic},
             {CardAbility.Hypnotize, I_Hypnotize},
+            {CardAbility.Weakness, I_Weakness},
         };
-        
-        animationPrefabs = new Dictionary<CardAbility, GameObject>
-        {
+
+        animationPrefabs = new Dictionary<CardAbility, GameObject> {
             {CardAbility.Armageddon, AA_Armagedon},
             {CardAbility.Dispel, AA_Dispel},
             {CardAbility.Haste, AA_Haste},
@@ -191,9 +189,28 @@ public class WholeFuckingGame : MonoBehaviour {
             {CardAbility.AntiMagic, AA_AntiMagic},
             {CardAbility.Resurrect, AA_Resurrect},
             {CardAbility.Hypnotize, AA_Hypnotize},
+            {CardAbility.Berserk, AA_Berserk},
+            {CardAbility.Weakness, AA_Weakness},
+            {CardAbility.Flight, AA_Flight},
         };
 
         board = new Board(boardLeftBottomPos, singleCellScale, piecePrefabs, iconPrefabs, animationPrefabs, A_Selector);
+        bot = new ChessAS(board);
+
+        board.Turn();
+
+        //play anim of haste for every pawn
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                ChessPiece piece = board.getPiece(x, y);
+                if (piece == null) continue;
+
+                if ((piece.type == PieceType.Pawn)) {
+                    board.playAnimation(CardAbility.Haste, board.getCellPosition(x, y));
+                }
+
+            }
+        }
     }
 
     void Start() {
@@ -212,21 +229,19 @@ public class WholeFuckingGame : MonoBehaviour {
         CreateManaDisplay(whiteManaLeft);
     }
 
-    // Initializes mana display with a specified amount
-    private void CreateManaDisplay(int startingMana) {
+    // init mana display thing to the right
+    void CreateManaDisplay(int startingMana) {
         whiteManaLeft = startingMana;
 
-        // Create a container for the mana icons
+        // container for mana icons
         GameObject manaContainerObject = new GameObject("ManaContainer");
         manaContainerObject.transform.SetParent(this.transform);
         manaContainer = manaContainerObject.transform;
 
-        // Position and rotation for the container
         manaContainer.localPosition = manaContainerPos;
         manaContainer.localRotation = Quaternion.Euler(new(90, 0, 0));
         manaContainer.localScale = new(4, 4, 4);
 
-        // Set spacing between icons
         float iconSpacing = 0.89f;
         float totalWidth = (startingMana - 1) * iconSpacing;
 
@@ -255,7 +270,7 @@ public class WholeFuckingGame : MonoBehaviour {
         if (dragged == Dragged.ChessPiece) {
             if (board.getPiece(selectedBoardCell) != null) {
                 board.getPiece(selectedBoardCell).
-                    SetVisualPosition(new Vector3(draggingMousePos.x, 2.5f, draggingMousePos.z));
+                    setTargetPosition(new Vector3(draggingMousePos.x, 2.5f, draggingMousePos.z));
             }
         } else if (dragged == Dragged.Card) {
             // if(draggedCard != null)
@@ -265,10 +280,20 @@ public class WholeFuckingGame : MonoBehaviour {
         whiteHand.updateHowHandDisplayed();
 
         UpdateManaDisplay();
-
-        int selected_card_from_hand = whiteHand.findSelected();
-
+        // int selected_card_from_hand = whiteHand.findSelected();
         if (didSomething) Turn();
+        if (WhoseTurn == PieceColor.Black) {
+            var (from, to) = bot.FindBestMove(PieceColor.Black);
+            Debug.LogError("from " + from.x + " " + from.y);
+            Debug.LogError("to " + to.x + " " + to.y);
+            bool moved = board.tryMovePiece(from, to);
+            Debug.Assert(moved);
+            Turn();
+        }
+
+        board.visualUpdate();
+
+        // if not dragged reset target 
     }
 
     void Turn() {
@@ -281,8 +306,9 @@ public class WholeFuckingGame : MonoBehaviour {
             Card card;
             card = deck.drawCard(); if (card != null) whiteHand.addCard(card);
             card = deck.drawCard(); if (card != null) whiteHand.addCard(card);
-        } else {
+        } else if (WhoseTurn == PieceColor.Black) {
             blackMovesLeft -= 1;
+
             if (blackMovesLeft == 0) {
                 switchWhoseTurn();
             }
@@ -307,131 +333,126 @@ public class WholeFuckingGame : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
 
-        LayerMask layerMask = LayerMask.GetMask("Cards");
-
         // WHY cards somewhat separate? They are not grid-snapped
         // i would also write collideres myself for it if it was an option
-        isHandHovered = false;
-        if (Physics.Raycast(ray.origin, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layerMask)) {
-            isHandHovered = true;
-        }
-        if (dragged == Dragged.Card) { isHandHovered = true; }
+        bool handRayHit = Physics.Raycast(ray.origin, new Vector3(0, -1, 0), out hit, Mathf.Infinity, LayerMask.GetMask("Cards"));
+        if (handRayHit || (dragged == Dragged.Card)) { isHandHovered = true; } else { isHandHovered = false; }
 
-        // Handle left mouse button down (LMB click)
-        if (inputHandler.IsInputDown()) {
-            if (Physics.Raycast(ray, out hit)) {
-                // Check if clicked on a card
-                var cardSelected = whiteHand.findSelected();
-                if (cardSelected != -1) {
-                    // play cardSelected
-                    // so now ref is in our mouse, and not updated by hand anymore
-                    draggedCard = whiteHand.drawCard(cardSelected);
-                    dragged = Dragged.Card;
-                } else {
-                    // Handle board cell clicks
-                    Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                    bool validTargetCell =
-                        board.IsPosInBoardBounds(new ivec2(clickedBoardCell.x, clickedBoardCell.z)) &&
-                        board.getPiece(clickedBoardCell.x, clickedBoardCell.z) != null
-                    ;
+        bool didSomethingThatEndsTurn = false;
+        bool anyHit = Physics.Raycast(ray, out hit);
+        ivec2 clickedBoardCell = ScreenToBoardPosition(hit.point);
+        if (inputHandler.IsInputDown()) { didSomethingThatEndsTurn = HandleLMBDown(ray, anyHit, clickedBoardCell); }
+        if (inputHandler.IsInputUp()) { didSomethingThatEndsTurn = HandleLMBUp(ray, anyHit, clickedBoardCell); }
 
-                    // Enable dragging if a valid cell is clicked
-                    if (validTargetCell) {
-                        if (board.getPiece(clickedBoardCell.x, clickedBoardCell.z).Color == WhoseTurn) {
-                            selectedBoardCell = new ivec2(clickedBoardCell.x, clickedBoardCell.z);
-                            dragged = Dragged.ChessPiece;
-                            //show possible moves when a piece dragged
-                            board.ShowMoveSelectors(new ivec2(clickedBoardCell.x, clickedBoardCell.z));
-                        }
+        return didSomethingThatEndsTurn;
+    }
+
+    bool HandleLMBDown(Ray ray, bool anyHit, ivec2 clickedBoardCell) {
+        if (anyHit) {
+            // Check if clicked on a card
+            var cardSelected = whiteHand.findSelected();
+            if (cardSelected != -1) {
+                // play cardSelected
+                // so now ref is in our mouse, and not updated by hand anymore
+                draggedCard = whiteHand.drawCard(cardSelected);
+                dragged = Dragged.Card;
+            } else {
+                // Handle board cell clicks
+                bool validTargetCell =
+                    board.IsPosInBoardBounds(clickedBoardCell) &&
+                    board.getPiece(clickedBoardCell) != null
+                ;
+                selectedBoardCell = clickedBoardCell;
+
+                // Enable dragging if a valid cell is clicked
+                if (validTargetCell) {
+                    if (board.getPiece(clickedBoardCell).color == WhoseTurn) {
+                        // selectedBoardCell = clickedBoardCell;
+                        dragged = Dragged.ChessPiece;
+                        //show possible moves when a piece dragged
+                        board.ShowMoveSelectors(clickedBoardCell);
                     }
                 }
             }
         }
-
-
-        
-        // Handle left mouse button release (LMB up)
+        return false;
+    }
+    bool HandleLMBUp(Ray ray, bool anyHit, ivec2 clickedBoardCell) {
         bool didSomethingThatEndsTurn = false;
-        if (inputHandler.IsInputUp()) {
-            if (dragged == Dragged.ChessPiece) {
-                if (Physics.Raycast(ray, out hit)) {
-                    Vector3Int clickedBoardCell = ScreenToBoardPosition(hit.point);
-                    bool validTargetCell = board.IsPosInBoardBounds(new ivec2(clickedBoardCell.x, clickedBoardCell.z));
+        if (dragged == Dragged.ChessPiece) {
+            if (anyHit) {
+                bool validTargetCell = board.IsPosInBoardBounds(clickedBoardCell);
 
-                    if (validTargetCell) {
-                        ChessPiece piece = board.getPiece(selectedBoardCell);
-                        PieceColor effective_color = 
-                            (piece.controlledByOpponentTurnsLeft > 0) ? 
-                            switchColor(piece.Color) : piece.Color;
+                if (validTargetCell) {
+                    ChessPiece piece = board.getPiece(selectedBoardCell);
+                    PieceColor effective_color =
+                        (piece.controlledByOpponentTurnsLeft > 0) ?
+                        switchColor(piece.color) : piece.color;
 
-                        if (effective_color == WhoseTurn) {
-                            Debug.Log($"Valid move to {clickedBoardCell}");
-                            bool moved = board.tryMovePiece(selectedBoardCell, new ivec2(clickedBoardCell.x, clickedBoardCell.z));
-                            if (moved) {
-                                board.getPiece(clickedBoardCell.x, clickedBoardCell.z).SetVisualPosition(board.getCellPosition(clickedBoardCell.x, clickedBoardCell.z));
-                                didSomethingThatEndsTurn = true;
-                            }
+                    if (effective_color == WhoseTurn) {
+                        Debug.Log($"Valid move to {clickedBoardCell}");
+                        bool moved = board.tryMovePiece(selectedBoardCell, clickedBoardCell);
+                        if (moved) {
+                            board.getPiece(clickedBoardCell).setTargetPosition(board.getCellPosition(clickedBoardCell));
+                            didSomethingThatEndsTurn = true;
                         }
                     }
                 }
-                // Reset visual position
-                if (board.getPiece(selectedBoardCell.x, selectedBoardCell.y) != null) {
-                    board.getPiece(selectedBoardCell.x, selectedBoardCell.y).SetVisualPosition(board.getCellPosition(selectedBoardCell.x, selectedBoardCell.y));
-                }
-                //do not show possible moves when no piece dragged anymore
-                board.ClearSelectors();
-            } else if (dragged == Dragged.Card) {
-                // if dropped into card graveyard
-                if(ifGraveyardHovered()) {
-                    if(whiteManaLeft < MAX_MANA) {
-                        draggedCard.Destroy();
-                        draggedCard = null; // free and remove the card
-                        whiteManaLeft += 1;
-                        UpdateManaDisplay();
-                    } else {
-                        whiteHand.addCard(draggedCard); // return to the hand
-                    }
+            }
+            // Reset visual position
+            if (board.getPiece(selectedBoardCell.x, selectedBoardCell.y) != null) {
+                board.getPiece(selectedBoardCell.x, selectedBoardCell.y).setTargetPosition(board.getCellPosition(selectedBoardCell.x, selectedBoardCell.y));
+            }
+            //do not show possible moves when no piece dragged anymore
+            board.ClearSelectors();
+        } else if (dragged == Dragged.Card) {
+            // if dropped into card graveyard
+            if (ifGraveyardHovered()) {
+                if (whiteManaLeft < MAX_MANA) {
+                    draggedCard.Destroy();
+                    draggedCard = null; // free and remove the card
+                    whiteManaLeft += 1;
+                    UpdateManaDisplay();
                 } else {
-                    // try to apply
-                    ivec2 clickedBoardCell = new ivec2(ScreenToBoardPosition(hit.point).x, ScreenToBoardPosition(hit.point).z);
-                    bool validTargetCell =
-                        board.IsPosInBoardBounds(clickedBoardCell) 
-                        // && board.checkPiece(clickedBoardCell)
-                    ;
-                    if (validTargetCell) {
-                        Debug.Log("card casted on" + clickedBoardCell);
-                        DeckDef deckDef = DeckDef.Instance;
-                        int appliedManaCost = deckDef.defs[draggedCard.Ability].Item2;
+                    whiteHand.addCard(draggedCard); // return to the hand
+                }
+            } else {
+                // try to apply
+                bool validTargetCell = board.IsPosInBoardBounds(clickedBoardCell);
 
-                        if (whiteManaLeft >= appliedManaCost) {
-                            bool applied = draggedCard.tryApplyEffect(board, clickedBoardCell.x, clickedBoardCell.y, this);
-                            if (applied) {
-                                //only if applied
-                                board.playAnimation(draggedCard.Ability, board.getCellPosition(clickedBoardCell.x, clickedBoardCell.y));
-                                whiteManaLeft -= appliedManaCost;
-                                draggedCard.Destroy();
-                                draggedCard = null; // free and remove the card
-                                UpdateManaDisplay();
-                                ChessPiece piece = board.getPiece(clickedBoardCell);
-                                // because effects can destroy it (magic arrow)
-                                if (piece != null) piece.updateEffectsDisplay(); // could be inside apply effect but moved here
-                            } else {
-                                whiteHand.addCard(draggedCard);
-                            }
+                if (validTargetCell) {
+                    Debug.Log("card casted on" + clickedBoardCell);
+                    DeckDef deckDef = DeckDef.Instance;
+                    int appliedManaCost = deckDef.defs[draggedCard.Ability].Item2;
+
+                    if (whiteManaLeft >= appliedManaCost) {
+                        bool applied = draggedCard.tryApplyEffect(board, clickedBoardCell.x, clickedBoardCell.y, this);
+                        if (applied) {
+                            //only if applied
+                            board.playAnimation(draggedCard.Ability, board.getCellPosition(clickedBoardCell));
+
+                            whiteManaLeft -= appliedManaCost;
+                            draggedCard.Destroy();
+                            draggedCard = null; // free and remove the card
+                            UpdateManaDisplay();
+                            ChessPiece piece = board.getPiece(clickedBoardCell);
+                            // because effects can destroy it (magic arrow)
+                            if (piece != null) piece.updateEffectsDisplay(); // could be inside apply effect but moved here
                         } else {
                             whiteHand.addCard(draggedCard);
                         }
                     } else {
-                        // return back to the hand
                         whiteHand.addCard(draggedCard);
                     }
+                } else {
+                    // return back to the hand
+                    whiteHand.addCard(draggedCard);
                 }
             }
-
-            // "reset the carret:
-            dragged = Dragged.None;
         }
 
+        // "reset the carret:
+        dragged = Dragged.None;
         return didSomethingThatEndsTurn;
     }
 
@@ -461,11 +482,11 @@ public class WholeFuckingGame : MonoBehaviour {
         }
     }
 
-    Vector3Int ScreenToBoardPosition(Vector3 screenPosition) {
+    ivec2 ScreenToBoardPosition(Vector3 screenPosition) {
         Debug.Log($"BoardPosition:" + screenPosition.x + " " + screenPosition.y + " " + screenPosition.z);
         int x = Mathf.FloorToInt((screenPosition.x - boardLeftBottomPos.x) / singleCellScale);
-        int z = Mathf.FloorToInt((screenPosition.z - boardLeftBottomPos.z) / singleCellScale);
-        return new Vector3Int(x, 0, z);
+        int y = Mathf.FloorToInt((screenPosition.z - boardLeftBottomPos.z) / singleCellScale);
+        return new ivec2(x, y);
     }
 
     void switchWhoseTurn() {
